@@ -67,3 +67,15 @@ msg:
 #身份证识别
 sfz:
   appCode: 582bccf3ba154792a7e37886f0094272
+
+#微信公众号设置
+wx:
+  mp:
+    - appId: 11
+      secret: 11
+      token: 11
+      aesKey: 11
+    - appId: 22
+      secret: 11
+      token: 11
+      aesKey: 11

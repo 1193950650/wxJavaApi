@@ -8,11 +8,11 @@ spring:
       # 响应页面默认后缀
         suffix: .jsp
   profiles:
-    active: test
+    active: dev
 mybatis-plus:
   # 如果是放在src/main/java目录下 classpath:/com/yourpackage/*/mapper/*Mapper.xml
   # 如果是放在resource目录 classpath:/mapper/*Mapper.xml
-  mapper-locations: classpath*:mapper/*/*Mapper.xml
+  mapper-locations: classpath*:mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.julu.entity
   global-config:

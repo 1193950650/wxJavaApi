@@ -1,8 +1,9 @@
 package com.julu.handler;
 
-import com.julu.entity.Users;
-import com.julu.mapper.user.UserRoleMapper;
-import com.julu.mapper.user.UsersMapper;
+
+import com.julu.entity.Sys_user;
+import com.julu.service.ISys_userService;
+import com.julu.service.ISys_user_rolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +18,8 @@ import java.util.Map;
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private UsersMapper usersMapper;
-    @Autowired
-    private UserRoleMapper userRoleMapper;
+    private ISys_userService usersMapper;
+
     /**
      * 用户身份验证
      */
@@ -30,19 +30,14 @@ public class CustomUserDetailsService implements UserDetailsService {
         map.put("phone",username);
         //判断是否为运营者
        // map.put("is_admin",3);
-        List<Users> user = usersMapper.selectByMap(map);
+        List<Sys_user> user = usersMapper.selectByMap(map);
         if (user==null || user.size()<1) {
             throw new BadCredentialsException("账号密码错误！");
         }
 
-
-        Users user1=user.get(0);
-        if (user1.getIsAdmin()!=3) {
-            throw new BadCredentialsException("该账号不是运营者！");
-        }
 //        System.out.println(user1.getUserRole().getCode());
 //        System.out.println(user1.getRoleId()+"--------------");
-        return new SecurityUser(user1);
+        return new SecurityUser(user.get(0));
     }
 
 

@@ -25,6 +25,7 @@
 		<java.version>1.8</java.version>
 		<spring-boot.version>1.5.9.RELEASE</spring-boot.version>
 		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+		<weixin-java-mp.version>3.1.6.BETA</weixin-java-mp.version>
 		<!-- midd component version -->
 		<springfox-swagger2>2.7.0</springfox-swagger2>
 		<com.alibaba-fastjson>1.2.44</com.alibaba-fastjson>
@@ -37,6 +38,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-mp</artifactId>
+			<version>${weixin-java-mp.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>

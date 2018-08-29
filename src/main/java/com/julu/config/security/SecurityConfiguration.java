@@ -2,7 +2,8 @@ package com.julu.config.security;
 import com.julu.handler.CustomUserDetailsService;
 import com.julu.handler.LoginFailureHandler;
 import com.julu.handler.LoginSuccessHandler;
-import com.julu.util.MD5;
+
+import com.julu.utils.MD5;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
