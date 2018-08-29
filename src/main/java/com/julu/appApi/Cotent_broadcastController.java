@@ -1,4 +1,4 @@
-package com.julu.controller;
+package com.julu.appApi;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,15 +7,15 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 角色表 前端控制器
+ * 内容-轮播配置 前端控制器
  * </p>
  *
  * @author mhs
  * @since 2018-08-29
  */
 @Controller
-@RequestMapping("/sys_role")
-public class Sys_roleController {
+@RequestMapping("/cotent_broadcast")
+public class Cotent_broadcastController {
 
 }
 

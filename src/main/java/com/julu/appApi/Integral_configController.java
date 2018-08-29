@@ -1,4 +1,4 @@
-package com.julu.controller;
+package com.julu.appApi;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
