@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "app接口返回")
 public class CodeMessage<T> {
-    @ApiModelProperty(value = "编码：200（成功）、401 (未登录)、403（权限不足，或被禁用）、404（不存在，查不到）")
+    @ApiModelProperty(value = "编码：200（成功）、401 (未登录)、403（权限不足，或被禁用）、404（不存在，查不到）、500（接口异常）")
     private Integer code;
     @ApiModelProperty(value = "消息内容：根据实际场景相应编码的详细描述")
     private String msg;
