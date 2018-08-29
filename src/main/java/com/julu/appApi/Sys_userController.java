@@ -36,7 +36,7 @@ public class Sys_userController {
     private IRedisService redisService;
     @GetMapping("/login")
     @ApiOperation("用户登录")
-    @ApiImplicitParams({@ApiImplicitParam(value="openId",name="openid",paramType="query",dataType="String")
+    @ApiImplicitParams({@ApiImplicitParam(value="open_id",name="open_id",paramType="query",dataType="String")
     })
     public CodeMessage<LoginDto> login(HttpSession httpSession, String open_id){
         CodeMessage codeMessage=new CodeMessage();
