@@ -1,0 +1,69 @@
+#开发环境配置文件
+server:
+  port: 8082
+  session-timeout: 60
+  tomcat:
+      uri-encoding: UTF-8
+spring:
+    mail:
+       default-encoding: UTF-8
+       host: smtp.uustream.com
+       username: services@uustream.com
+       port: 587
+       protocol: smtp
+       password: WSJS840226wsjs
+    datasource:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://47.93.225.125:3306/bsshop_dev?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false # 内网服务器
+        username: root
+        password: 123456
+        connection-timeout: 120000
+        driver-class-name: com.mysql.jdbc.Driver
+        sql-script-encoding: utf-8
+        initialSize: 5 #初始化大小
+        minIdle: 5 #最小
+        maxActive: 100 #最大
+        maxWait: 60000 #配置获取连接等待超时的时间
+        timeBetweenEvictionRunsMillis: 60000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        minEvictableIdleTimeMillis : 300000 #配置一个连接在池中最小生存的时间，单位是毫秒
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true #打开PSCache
+        maxPoolPreparedStatementPerConnectionSize: 20 #指定每个连接上PSCache的大小
+    http:
+        multipart:
+          max-file-size: 500Mb      # Max file size
+          max-request-size: 500Mb   # Max request size
+    redis:
+      database: 0
+      host: 47.93.225.125
+      port: 6379
+      password: 123456
+      timeout: 0
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      pool.min-idle: 0
+    session:
+      store-type: redis
+#文件路径-生成环境下需要配置到对应的目录下
+file:
+  url: /tmp/bs8082/data
+securityconfig:
+  logoutsuccssurl: /login_out
+  permitall: /*/app/**,/doc.html,/user/web/getCode,/user/web/updateuserpassword,/user/web/updatepassword,/*.ico,/*.html,/images/**,/checkcode,/lib/**,/fonts/**,/js/**,/monitoring/findTestMacById,/testmacdata/searchTestmacData,/css/**"
+  deniedpage: /deny
+  urlroles: /**/new/** = admin;
+            /**/edit/** = admin,editor;
+            /**/delete/** = admin
+#发送短信
+msg:
+  accessKeyId: LTAI1ubI2gAPlUMa
+  accessKeySecret: eGSdCs7TuDtbzZXeycRK2kOxZP4FYg
+  signName: 微链云
+  TemplateCode: SMS_142153866
+#身份证识别
+sfz:
+  appCode: 582bccf3ba154792a7e37886f0094272

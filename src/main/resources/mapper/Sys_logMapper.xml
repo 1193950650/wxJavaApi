@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Sys_logMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Sys_log">
+        <id column="id" property="id" />
+        <result column="group" property="group" />
+        <result column="content" property="content" />
+        <result column="right_url" property="right_url" />
+        <result column="log_time" property="log_time" />
+        <result column="user_id" property="user_id" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Sys_userMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Sys_user">
+        <id column="id" property="id" />
+        <result column="password" property="password" />
+        <result column="user_name" property="user_name" />
+        <result column="icon" property="icon" />
+        <result column="open_id" property="open_id" />
+        <result column="socer" property="socer" />
+        <result column="last_login_time" property="last_login_time" />
+        <result column="login_num" property="login_num" />
+    </resultMap>
+
+</mapper>

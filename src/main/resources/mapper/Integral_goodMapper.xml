@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Integral_goodMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Integral_good">
+        <id column="id" property="id" />
+        <result column="good_name" property="good_name" />
+        <result column="market_price" property="market_price" />
+        <result column="sale_price" property="sale_price" />
+        <result column="stock_num" property="stock_num" />
+        <result column="exchange_num" property="exchange_num" />
+        <result column="sale_status" property="sale_status" />
+        <result column="need_address" property="need_address" />
+        <result column="thumbnail_url" property="thumbnail_url" />
+        <result column="good_imges" property="good_imges" />
+        <result column="goog_desc" property="goog_desc" />
+        <result column="end_time" property="end_time" />
+        <result column="good_notes" property="good_notes" />
+        <result column="good_sort" property="good_sort" />
+    </resultMap>
+
+</mapper>

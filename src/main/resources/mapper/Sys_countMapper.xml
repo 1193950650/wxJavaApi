@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Sys_countMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Sys_count">
+        <result column="id" property="id" />
+        <result column="open_num" property="open_num" />
+        <result column="see_num" property="see_num" />
+        <result column="new_see_num" property="new_see_num" />
+        <result column="share_num" property="share_num" />
+        <result column="sys_time" property="sys_time" />
+    </resultMap>
+
+</mapper>

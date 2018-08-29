@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Integral_configMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Integral_config">
+        <id column="id" property="id" />
+        <result column="status" property="status" />
+        <result column="login_get_num" property="login_get_num" />
+        <result column="consumer_num" property="consumer_num" />
+        <result column="consumer_get_num" property="consumer_get_num" />
+        <result column="rule" property="rule" />
+    </resultMap>
+
+</mapper>
