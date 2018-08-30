@@ -70,7 +70,7 @@ public class Sys_userController {
 
     @GetMapping("/get_user_info")
     @ApiOperation("获取用户信息")
-    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="openid",paramType="query",dataType="String")
+    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage<Sys_user> get_user_info(HttpSession httpSession, String login_token){
         CodeMessage codeMessage=new CodeMessage();
