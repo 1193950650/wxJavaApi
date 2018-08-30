@@ -3,6 +3,7 @@ package com.julu.appApi;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
+import com.julu.dto.PageDto;
 import com.julu.entity.Integral_good;
 import com.julu.service.IIntegral_goodService;
 import com.julu.service.IRedisService;
@@ -38,7 +39,7 @@ public class Integral_goodController {
     @ApiOperation("获取商品列表")
     @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
-    public CodeMessage<Page<Integral_good>> get_integral_good_list(String login_token){
+    public CodeMessage<PageDto<Integral_good>> get_integral_good_list(String login_token){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
