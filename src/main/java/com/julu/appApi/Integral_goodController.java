@@ -127,7 +127,7 @@ public class Integral_goodController {
         return codeMessage;
     }
 
-    @GetMapping("/update_integral_good")
+    @GetMapping("/update_sale_status")
     @ApiOperation("商品上架下架")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
