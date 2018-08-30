@@ -29,13 +29,13 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("/app/sys_user")
-@Api("关于用户")
+@Api("用户接口")
 public class Sys_userController {
     @Autowired
     private ISys_userService sys_userService;
     private IRedisService redisService;
     @GetMapping("/login")
-    @ApiOperation("用户登录")
+    @ApiOperation("微信用户登录")
     @ApiImplicitParams({@ApiImplicitParam(value="open_id",name="open_id",paramType="query",dataType="String")
     })
     public CodeMessage<LoginDto> login(HttpSession httpSession, String open_id){
@@ -57,19 +57,25 @@ public class Sys_userController {
         return codeMessage;
     }
 
-    @GetMapping("/join")
-    @ApiOperation("用户关注")
+    @GetMapping("/update_user_info")
+    @ApiOperation("更新用户微信信息")
     @ApiImplicitParams({@ApiImplicitParam(value="openId",name="openid",paramType="query",dataType="String")
       })
-    public CodeMessage<LoginDto> join(HttpSession httpSession, String open_id){
+    public CodeMessage update_user_info(HttpSession httpSession, String open_id){
+        Sys_user sys_user=new Sys_user();
         //TODO openid获取用户微信信息
-        //TODO 保存至数据库
+        //保存至数据库
+        EntityWrapper<Sys_user> ew=new EntityWrapper<>();
+        ew.eq("open_id",open_id);
+        sys_userService.update(sys_user,ew);
         CodeMessage codeMessage=new CodeMessage();
+        codeMessage.setCode(200);
+        codeMessage.setMsg("获取用户微信信息成功");
         return codeMessage;
     }
 
     @GetMapping("/get_user_info")
-    @ApiOperation("获取用户信息")
+    @ApiOperation("获取用户微信信息")
     @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage<Sys_user> get_user_info(HttpSession httpSession, String login_token){
@@ -77,7 +83,14 @@ public class Sys_userController {
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
             codeMessage.setMsg("token丢失");
+            return  codeMessage;
         }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+
         //login_token获取用户微信信息
         Sys_user sys_user= redisService.getAppFuser(login_token);
         if(sys_user!=null){
@@ -90,5 +103,63 @@ public class Sys_userController {
         }
         return codeMessage;
     }
+
+    @GetMapping("/delete_user")
+    @ApiOperation("删除用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="待删除用户id",name="id",paramType="query",dataType="Integer")
+    })
+    public CodeMessage delete_user(HttpSession httpSession, String login_token,Integer id){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+
+        if(sys_userService.deleteById(id)){
+            codeMessage.setCode(200);
+            codeMessage.setMsg("删除用户成功");
+        }else{
+            codeMessage.setCode(500);
+            codeMessage.setMsg("服务器异常");
+        }
+        return codeMessage;
+    }
+
+    @GetMapping("/add_user")
+    @ApiOperation("新增用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="用户信息",name="sys_user",paramType="query",dataType="Sys_user")
+    })
+    public CodeMessage add_user(HttpSession httpSession, String login_token,Sys_user sys_user){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+        if(sys_userService.insert(sys_user)){
+            codeMessage.setCode(200);
+            codeMessage.setMsg("新增用户成功");
+        }else{
+            codeMessage.setCode(500);
+            codeMessage.setMsg("新增用户失败");
+        }
+        return codeMessage;
+    }
+
 }
 
