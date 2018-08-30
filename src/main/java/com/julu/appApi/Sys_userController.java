@@ -33,6 +33,7 @@ import javax.servlet.http.HttpSession;
 public class Sys_userController {
     @Autowired
     private ISys_userService sys_userService;
+    @Autowired
     private IRedisService redisService;
     @GetMapping("/login")
     @ApiOperation("微信用户登录")
