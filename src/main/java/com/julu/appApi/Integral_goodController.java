@@ -29,7 +29,7 @@ import java.util.LinkedList;
  */
 @Controller
 @Api("积分商品接口")
-@RequestMapping("/integral_good")
+@RequestMapping("/app/integral_good")
 public class Integral_goodController {
     @Autowired
     private IIntegral_goodService integral_goodService;
