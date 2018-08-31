@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.julu.mapper.Contet_configMapper">
+<mapper namespace="com.julu.mapper.Content_configMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.julu.entity.Contet_config">
+    <resultMap id="BaseResultMap" type="com.julu.entity.Content_config">
         <id column="id" property="id" />
         <result column="is_open_audio" property="is_open_audio" />
         <result column="is_open_comment" property="is_open_comment" />

@@ -10,10 +10,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-08-29
+ * @since 2018-08-31
  */
-@TableName("wx_cotent_broadcast")
-public class Cotent_broadcast extends Model<Cotent_broadcast> {
+@TableName("wx_content_broadcast_config")
+public class Content_broadcast_config extends Model<Content_broadcast_config> {
 
     private static final long serialVersionUID = 1L;
 
@@ -86,7 +86,7 @@ public class Cotent_broadcast extends Model<Cotent_broadcast> {
 
     @Override
     public String toString() {
-        return "Cotent_broadcast{" +
+        return "Content_broadcast_config{" +
         ", id=" + id +
         ", is_show_point=" + is_show_point +
         ", is_auto_change=" + is_auto_change +

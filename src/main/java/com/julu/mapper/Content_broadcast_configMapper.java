@@ -1,6 +1,6 @@
 package com.julu.mapper;
 
-import com.julu.entity.Cotent_broadcast_config;
+import com.julu.entity.Content_broadcast_config;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author mhs
  * @since 2018-08-31
  */
-public interface Cotent_broadcast_configMapper extends BaseMapper<Cotent_broadcast_config> {
+public interface Content_broadcast_configMapper extends BaseMapper<Content_broadcast_config> {
 
 }

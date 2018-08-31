@@ -11,11 +11,11 @@ import org.springframework.stereotype.Controller;
  * </p>
  *
  * @author mhs
- * @since 2018-08-29
+ * @since 2018-08-31
  */
 @Controller
-@RequestMapping("/cotent_broadcast")
-public class Cotent_broadcastController {
+@RequestMapping("/content_broadcast_config")
+public class Content_broadcast_configController {
 
 }
 

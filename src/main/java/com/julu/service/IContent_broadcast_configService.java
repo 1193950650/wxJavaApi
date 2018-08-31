@@ -1,6 +1,6 @@
 package com.julu.service;
 
-import com.julu.entity.Cotent_broadcast_config;
+import com.julu.entity.Content_broadcast_config;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author mhs
  * @since 2018-08-31
  */
-public interface ICotent_broadcast_configService extends IService<Cotent_broadcast_config> {
+public interface IContent_broadcast_configService extends IService<Content_broadcast_config> {
 
 }

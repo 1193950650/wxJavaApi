@@ -32,7 +32,7 @@ public class Content_comment extends Model<Content_comment> {
     /**
      * 被点赞次数
      */
-    private Integer thumbs-up_num;
+    private Integer thumbs_up_num;
     /**
      * 显示 0不显示 1显示
      */
@@ -63,12 +63,12 @@ public class Content_comment extends Model<Content_comment> {
         this.user_id = user_id;
     }
 
-    public Integer getThumbs-up_num() {
-        return thumbs-up_num;
+    public Integer getThumbs_up_num() {
+        return thumbs_up_num;
     }
 
-    public void setThumbs-up_num(Integer thumbs-up_num) {
-        this.thumbs-up_num = thumbs-up_num;
+    public void setThumbs_up_num(Integer thumbs_up_num) {
+        this.thumbs_up_num = thumbs_up_num;
     }
 
     public Integer getIs_show() {
@@ -90,7 +90,7 @@ public class Content_comment extends Model<Content_comment> {
         ", id=" + id +
         ", imgtext_id=" + imgtext_id +
         ", user_id=" + user_id +
-        ", thumbs-up_num=" + thumbs-up_num +
+        ", thumbs_up_num=" + thumbs_up_num +
         ", is_show=" + is_show +
         "}";
     }
