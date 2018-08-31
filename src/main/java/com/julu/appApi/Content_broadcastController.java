@@ -35,9 +35,10 @@ public class Content_broadcastController {
     @ApiOperation("获取轮播列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="显示 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%标题名称%",name="title_name",paramType="query",dataType="String")
     })
-    public CodeMessage<PageDto<Content_broadcast>> get_content_broadcast_list(String login_token, String title_name){
+    public CodeMessage<PageDto<Content_broadcast>> get_content_broadcast_list(String login_token,Integer is_show, String title_name){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -51,6 +52,7 @@ public class Content_broadcastController {
         }
         Page<Content_broadcast> page=new Page<>();
         EntityWrapper<Content_broadcast> ew=new EntityWrapper<>();
+        ew.eq("is_show",is_show);
         ew.eq("title_name",title_name);
         page.setSize(10);
         try {
