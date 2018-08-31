@@ -3,7 +3,6 @@ package com.julu.appApi;
 
 import com.julu.dto.CodeMessage;
 import com.julu.entity.Integral_config;
-import com.julu.entity.Integral_good;
 import com.julu.service.IIntegral_configService;
 import com.julu.service.IRedisService;
 import io.swagger.annotations.Api;

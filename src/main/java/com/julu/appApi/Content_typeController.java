@@ -1,6 +1,7 @@
 package com.julu.appApi;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -25,9 +26,9 @@ import org.springframework.stereotype.Controller;
  * @author mhs
  * @since 2018-08-31
  */
-@Controller
+@RestController
 @Api(tags = "内容-分类")
-@RequestMapping("/content_type")
+@RequestMapping("/app/content_type")
 public class Content_typeController {
     @Autowired
     private IContent_typeService content_typeService;
@@ -35,9 +36,11 @@ public class Content_typeController {
     private IRedisService redisService;
     @GetMapping("/get_content_type_list")
     @ApiOperation("获取分类列表")
-    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="%分类名称%",name="name",paramType="query",dataType="String")
     })
-    public CodeMessage<PageDto<Content_type>> get_content_type_list(String login_token){
+    public CodeMessage<PageDto<Content_type>> get_content_type_list(String login_token,String name){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -50,9 +53,11 @@ public class Content_typeController {
             return codeMessage;
         }
         Page<Content_type> page=new Page<>();
+        EntityWrapper<Content_type> ew=new EntityWrapper<>();
+        ew.like(true,"name",name);
         page.setSize(10);
         try {
-            page=content_typeService.selectPage(page);
+            page=content_typeService.selectPage(page,ew);
             codeMessage.setCode(200);
             codeMessage.setMsg("查询分类列表成功");
             codeMessage.setData(page);
@@ -154,6 +159,34 @@ public class Content_typeController {
         }catch (Exception e){
             codeMessage.setCode(500);
             codeMessage.setMsg("删除分类失败");
+        }
+        return codeMessage;
+    }
+
+    @GetMapping("/add_content_type")
+    @ApiOperation("新增分类")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="分类信息",name="content_type",paramType="query",dataType="Content_type")
+    })
+    public CodeMessage add_content_type(String login_token,Content_type content_type){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+        if(content_typeService.insert(content_type)){
+            codeMessage.setCode(200);
+            codeMessage.setMsg("新增分类成功");
+        }else{
+            codeMessage.setCode(500);
+            codeMessage.setMsg("新增分类失败");
         }
         return codeMessage;
     }

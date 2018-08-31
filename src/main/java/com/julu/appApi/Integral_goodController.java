@@ -1,6 +1,7 @@
 package com.julu.appApi;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
@@ -34,9 +35,11 @@ public class Integral_goodController {
     private IRedisService redisService;
     @GetMapping("/get_integral_good_list")
     @ApiOperation("获取商品列表")
-    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="%商品名称%",name="good_name",paramType="query",dataType="String")
     })
-    public CodeMessage<PageDto<Integral_good>> get_integral_good_list(String login_token){
+    public CodeMessage<PageDto<Integral_good>> get_integral_good_list(String login_token,String good_name){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -49,9 +52,11 @@ public class Integral_goodController {
             return codeMessage;
         }
         Page<Integral_good> page=new Page<>();
+        EntityWrapper<Integral_good> ew=new EntityWrapper<>();
+        ew.eq("good_name",good_name);
         page.setSize(10);
         try {
-            page=integral_goodService.selectPage(page);
+            page=integral_goodService.selectPage(page,ew);
             codeMessage.setCode(200);
             codeMessage.setMsg("查询商品列表成功");
             codeMessage.setData(page);
@@ -191,6 +196,34 @@ public class Integral_goodController {
         }catch (Exception e){
             codeMessage.setCode(500);
             codeMessage.setMsg("删除商品失败");
+        }
+        return codeMessage;
+    }
+
+    @GetMapping("/add_integral_good")
+    @ApiOperation("新增商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="用户信息",name="sys_user",paramType="query",dataType="Sys_user")
+    })
+    public CodeMessage add_integral_good(String login_token,Integral_good integral_good){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+        if(integral_goodService.insert(integral_good)){
+            codeMessage.setCode(200);
+            codeMessage.setMsg("新增商品成功");
+        }else{
+            codeMessage.setCode(500);
+            codeMessage.setMsg("新增商品失败");
         }
         return codeMessage;
     }
