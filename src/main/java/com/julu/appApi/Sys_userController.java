@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
@@ -27,9 +28,9 @@ import javax.servlet.http.HttpSession;
  * @author mhs
  * @since 2018-08-29
  */
-@Controller
+@RestController
 @RequestMapping("/app/sys_user")
-@Api("用户接口")
+@Api(tags = "用户接口")
 public class Sys_userController {
     @Autowired
     private ISys_userService sys_userService;

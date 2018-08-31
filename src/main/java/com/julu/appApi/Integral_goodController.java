@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
 
@@ -27,8 +28,8 @@ import java.util.LinkedList;
  * @author mhs
  * @since 2018-08-29
  */
-@Controller
-@Api("积分商品接口")
+@RestController
+@Api(tags = "积分商品接口")
 @RequestMapping("/app/integral_good")
 public class Integral_goodController {
     @Autowired

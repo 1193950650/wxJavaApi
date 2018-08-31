@@ -6,6 +6,7 @@ import com.julu.entity.Integral_config;
 import com.julu.entity.Integral_good;
 import com.julu.service.IIntegral_configService;
 import com.julu.service.IRedisService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -23,7 +25,8 @@ import org.springframework.stereotype.Controller;
  * @author mhs
  * @since 2018-08-29
  */
-@Controller
+@RestController
+@Api(tags = "积分商城配置")
 @RequestMapping("/app/integral_config")
 public class Integral_configController {
     @Autowired
