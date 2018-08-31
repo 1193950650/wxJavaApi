@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Content_commentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Content_comment">
+        <id column="id" property="id" />
+        <result column="imgtext_id" property="imgtext_id" />
+        <result column="user_id" property="user_id" />
+        <result column="thumbs-up_num" property="thumbs-up_num" />
+        <result column="is_show" property="is_show" />
+    </resultMap>
+
+</mapper>
