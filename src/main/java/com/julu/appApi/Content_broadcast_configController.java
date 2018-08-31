@@ -1,13 +1,11 @@
 package com.julu.appApi;
 
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
-import com.julu.dto.PageDto;
 import com.julu.entity.Content_broadcast_config;
 import com.julu.service.IContent_broadcast_configService;
 import com.julu.service.IRedisService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -15,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -25,7 +23,8 @@ import org.springframework.stereotype.Controller;
  * @author mhs
  * @since 2018-08-31
  */
-@Controller
+@RestController
+@Api(tags = "内容-轮播配")
 @RequestMapping("/app/content_broadcast_config")
 public class Content_broadcast_configController {
     @Autowired

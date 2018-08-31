@@ -204,7 +204,7 @@ public class Integral_goodController {
     @ApiOperation("新增商品")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="用户信息",name="sys_user",paramType="query",dataType="Sys_user")
+            @ApiImplicitParam(value="用户信息",name="integral_good",paramType="query",dataType="Integral_good")
     })
     public CodeMessage add_integral_good(String login_token,Integral_good integral_good){
         CodeMessage codeMessage=new CodeMessage();
