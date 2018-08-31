@@ -60,7 +60,7 @@ public class Sys_userController {
 
     @GetMapping("/update_user_info")
     @ApiOperation("更新用户微信信息")
-    @ApiImplicitParams({@ApiImplicitParam(value="openId",name="openid",paramType="query",dataType="String")
+    @ApiImplicitParams({@ApiImplicitParam(value="open_id",name="open_id",paramType="query",dataType="String")
       })
     public CodeMessage update_user_info(HttpSession httpSession, String open_id){
         Sys_user sys_user=new Sys_user();
