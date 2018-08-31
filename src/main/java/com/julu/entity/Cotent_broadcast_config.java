@@ -2,6 +2,9 @@ package com.julu.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,7 @@ import java.io.Serializable;
  * @author mhs
  * @since 2018-08-31
  */
+@ApiModel("内容-轮播配置")
 @TableName("wx_cotent_broadcast_config")
 public class Cotent_broadcast_config extends Model<Cotent_broadcast_config> {
 
@@ -20,22 +24,27 @@ public class Cotent_broadcast_config extends Model<Cotent_broadcast_config> {
     /**
      * 轮播管理id
      */
+    @ApiModelProperty("轮播管理id")
     private Integer id;
     /**
      * 面板指示灯 0不显示 1显示
      */
+    @ApiModelProperty("面板指示灯 0不显示 1显示")
     private Integer is_show_point;
     /**
      * 自动切换 0不能 1可以
      */
+    @ApiModelProperty("自动切换 0不能 1可以")
     private Integer is_auto_change;
     /**
      * 自动切换时间间隔（毫秒）
      */
+    @ApiModelProperty("自动切换时间间隔（毫秒）")
     private Integer auto_change_time;
     /**
      * 滑动动画时长（毫秒）
      */
+    @ApiModelProperty("滑动动画时长（毫秒）")
     private Integer animation_time;
 
 

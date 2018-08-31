@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -14,28 +17,34 @@ import java.io.Serializable;
  * @author mhs
  * @since 2018-08-31
  */
+@ApiModel("内容-评论")
 @TableName("wx_content_comment")
 public class Content_comment extends Model<Content_comment> {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty("评论id")
     private Integer id;
     /**
      * 图文内容id
      */
+    @ApiModelProperty("图文内容id")
     private Integer imgtext_id;
     /**
      * 用户id
      */
+    @ApiModelProperty("用户id")
     private Integer user_id;
     /**
      * 被点赞次数
      */
+    @ApiModelProperty("被点赞次数")
     private Integer thumbs_up_num;
     /**
      * 显示 0不显示 1显示
      */
+    @ApiModelProperty("显示 0不显示 1显示")
     private Integer is_show;
 
 

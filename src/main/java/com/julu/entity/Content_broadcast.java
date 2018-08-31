@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -14,6 +17,7 @@ import java.io.Serializable;
  * @author mhs
  * @since 2018-08-31
  */
+@ApiModel("内容-轮播管理")
 @TableName("wx_content_broadcast")
 public class Content_broadcast extends Model<Content_broadcast> {
 
@@ -22,27 +26,33 @@ public class Content_broadcast extends Model<Content_broadcast> {
     /**
      * 轮番管理id
      */
+    @ApiModelProperty("轮番管理id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 标题名称
      */
+    @ApiModelProperty("标题名称")
     private String title_name;
     /**
      * 图片处理
      */
+    @ApiModelProperty("图片处理")
     private String image;
     /**
      * 链接地址
      */
+    @ApiModelProperty("链接地址")
     private String url;
     /**
      * 显示 0不显示 1显示
      */
+    @ApiModelProperty("显示 0不显示 1显示")
     private Integer is_show;
     /**
      * 排序
      */
+    @ApiModelProperty("排序")
     private String sort;
 
 
