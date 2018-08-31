@@ -29,7 +29,7 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping("/app/sys_user")
-@Api(tags = "用户接口")
+@Api(tags = "用户")
 public class Sys_userController {
     @Autowired
     private ISys_userService sys_userService;

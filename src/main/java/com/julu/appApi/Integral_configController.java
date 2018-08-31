@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2018-08-29
  */
 @RestController
-@Api(tags = "积分商城配置接口")
+@Api(tags = "积分商城配置")
 @RequestMapping("/app/integral_config")
 public class Integral_configController {
     @Autowired
