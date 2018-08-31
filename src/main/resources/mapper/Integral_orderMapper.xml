@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Integral_orderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Integral_order">
+        <id column="id" property="id" />
+        <result column="order_num" property="order_num" />
+        <result column="user_id" property="user_id" />
+        <result column="good_id" property="good_id" />
+        <result column="order_time" property="order_time" />
+        <result column="order_status" property="order_status" />
+    </resultMap>
+
+</mapper>

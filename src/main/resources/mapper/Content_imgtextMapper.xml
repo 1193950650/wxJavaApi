@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.julu.mapper.Content_imgtextMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.julu.entity.Content_imgtext">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="author" property="author" />
+        <result column="type_id" property="type_id" />
+        <result column="cover_style" property="cover_style" />
+        <result column="cover_image" property="cover_image" />
+        <result column="is_show" property="is_show" />
+        <result column="word_tags" property="word_tags" />
+        <result column="is_pay" property="is_pay" />
+        <result column="content" property="content" />
+    </resultMap>
+
+</mapper>

@@ -5,6 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +18,7 @@ import java.io.Serializable;
  * @author mhs
  * @since 2018-08-29
  */
+@ApiModel("用户信息")
 @TableName("wx_sys_user")
 public class Sys_user extends Model<Sys_user> {
 
@@ -23,35 +27,43 @@ public class Sys_user extends Model<Sys_user> {
     /**
      *  用户id
      */
+    @ApiModelProperty("用户id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 用户密码
      */
+    @ApiModelProperty("用户密码")
     private String password;
     /**
      * 用户姓名
      */
+    @ApiModelProperty("用户姓名")
     private String user_name;
     /**
      * 用户头像
      */
+    @ApiModelProperty("用户头像")
     private String icon;
     /**
      * 微信唯一标识
      */
+    @ApiModelProperty("微信唯一标识")
     private String open_id;
     /**
      * 积分
      */
+    @ApiModelProperty("积分")
     private Integer socer;
     /**
      * 最后登录时间
      */
+    @ApiModelProperty("最后登录时间")
     private Date last_login_time;
     /**
      * 登录次数
      */
+    @ApiModelProperty("登录次数")
     private Integer login_num;
 
 

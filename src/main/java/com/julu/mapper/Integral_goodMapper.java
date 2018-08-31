@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author mhs
- * @since 2018-08-29
+ * @since 2018-08-31
  */
 public interface Integral_goodMapper extends BaseMapper<Integral_good> {
 

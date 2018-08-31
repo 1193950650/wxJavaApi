@@ -27,14 +27,14 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException,ServletException {
         Sys_user userDetails = (Sys_user)authentication.getPrincipal();
-        log.info("登录用户user:" + userDetails.getUser_name()+ "login"+request.getContextPath());
-        log.info("IP:" + getIpAddress(request));
-        // 判断该用户是不是管理员
-        /*Integer i= userDetails.getIsAdmin();
-        if(i == null || i != 1){
-        	 getRedirectStrategy().sendRedirect(request,response,"/login_out?error=1");
-        }*/
-//        System.out.println("url:"+url);
+//        log.info("登录用户user:" + userDetails.getUser_name()+ "login"+request.getContextPath());
+//        log.info("IP:" + getIpAddress(request));
+//        // 判断该用户是不是管理员
+//        /*Integer i= userDetails.getIsAdmin();
+//        if(i == null || i != 1){
+//        	 getRedirectStrategy().sendRedirect(request,response,"/login_out?error=1");
+//        }*/
+////        System.out.println("url:"+url);
         redirectStrategy.sendRedirect(request,response,"/main");
      //   super.onAuthenticationSuccess(request, response, authentication);
     }

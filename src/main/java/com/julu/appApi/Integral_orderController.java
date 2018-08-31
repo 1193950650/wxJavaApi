@@ -7,15 +7,15 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 内容-轮播配置 前端控制器
+ * 积分商城订单 前端控制器
  * </p>
  *
  * @author mhs
- * @since 2018-08-29
+ * @since 2018-08-31
  */
 @Controller
-@RequestMapping("/cotent_broadcast")
-public class Cotent_broadcastController {
+@RequestMapping("/integral_order")
+public class Integral_orderController {
 
 }
 

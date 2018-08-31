@@ -3,7 +3,6 @@ package com.julu.handler;
 
 import com.julu.entity.Sys_user;
 import com.julu.service.ISys_userService;
-import com.julu.service.ISys_user_rolesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;

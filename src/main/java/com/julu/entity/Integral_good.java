@@ -5,6 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -16,6 +19,7 @@ import java.io.Serializable;
  * @since 2018-08-29
  */
 @TableName("wx_integral_good")
+@ApiModel("积分商品")
 public class Integral_good extends Model<Integral_good> {
 
     private static final long serialVersionUID = 1L;
@@ -23,59 +27,73 @@ public class Integral_good extends Model<Integral_good> {
     /**
      * 商品id
      */
+    @ApiModelProperty("商品id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 商品名称
      */
+    @ApiModelProperty("商品名称")
     private String good_name;
     /**
      * 市场价格
      */
+    @ApiModelProperty("市场价格")
     private Double market_price;
     /**
      * 销售价格
      */
+    @ApiModelProperty("销售价格")
     private Double sale_price;
     /**
      * 库存
      */
+    @ApiModelProperty("库存")
     private Integer stock_num;
     /**
      * 兑换次数
      */
+    @ApiModelProperty("兑换次数")
     private Integer exchange_num;
     /**
      * 0下架 1上架
      */
+    @ApiModelProperty("0下架 1上架")
     private Integer sale_status;
     /**
      * 0不需要 1需要
      */
+    @ApiModelProperty("0不需要 1需要")
     private Integer need_address;
     /**
      * 缩略图
      */
+    @ApiModelProperty("缩略图")
     private String thumbnail_url;
     /**
      * 商品图册，用逗号隔开
      */
+    @ApiModelProperty("商品图册，用逗号隔开")
     private String good_imges;
     /**
      * 商品简介
      */
+    @ApiModelProperty("商品简介")
     private String goog_desc;
     /**
      * 截止时间
      */
+    @ApiModelProperty("截止时间")
     private Date end_time;
     /**
      * 商品说明
      */
+    @ApiModelProperty("商品说明")
     private String good_notes;
     /**
      * 商品排序
      */
+    @ApiModelProperty("商品排序")
     private Integer good_sort;
 
 

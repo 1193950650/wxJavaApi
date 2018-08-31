@@ -7,15 +7,15 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 内容基本配置 前端控制器
+ * 积分消费记录 前端控制器
  * </p>
  *
  * @author mhs
- * @since 2018-08-29
+ * @since 2018-08-31
  */
 @Controller
-@RequestMapping("/contet_config")
-public class Contet_configController {
+@RequestMapping("/integral_consum")
+public class Integral_consumController {
 
 }
 
