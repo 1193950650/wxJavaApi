@@ -3,7 +3,7 @@ package com.julu.appApi;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
  * @author mhs
  * @since 2018-08-31
  */
-@Controller
-@RequestMapping("/integral_consum")
+@RestController
+@RequestMapping("／app/integral_consum")
 public class Integral_consumController {
 
 }

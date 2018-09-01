@@ -5,6 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +18,7 @@ import java.io.Serializable;
  * @author mhs
  * @since 2018-08-31
  */
+@ApiModel("积分兑换记录")
 @TableName("wx_integral_exchange_socer")
 public class Integral_exchange_socer extends Model<Integral_exchange_socer> {
 
@@ -23,23 +27,28 @@ public class Integral_exchange_socer extends Model<Integral_exchange_socer> {
     /**
      * 兑换积分id
      */
+    @ApiModelProperty("兑换积分id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 兑换码
      */
+    @ApiModelProperty("兑换码")
     private String exchange_num;
     /**
      * 积分数量
      */
+    @ApiModelProperty("积分数量")
     private Integer socer_num;
     /**
      * 使用用户id
      */
+    @ApiModelProperty("使用用户id")
     private Integer user_id;
     /**
      * 兑换时间
      */
+    @ApiModelProperty("兑换时间")
     private Date exchange_time;
 
 

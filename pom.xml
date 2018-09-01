@@ -149,7 +149,7 @@
 		<dependency>
 			<groupId>com.github.xiaoymin</groupId>
 			<artifactId>swagger-bootstrap-ui</artifactId>
-			<version>1.7.3</version>
+			<version>1.8.2</version>
 		</dependency>
 		<!--Project-->
 		<dependency>

@@ -5,6 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +18,7 @@ import java.io.Serializable;
  * @author mhs
  * @since 2018-08-31
  */
+@ApiModel("积分消费记录")
 @TableName("wx_integral_consum")
 public class Integral_consum extends Model<Integral_consum> {
 
@@ -23,23 +27,28 @@ public class Integral_consum extends Model<Integral_consum> {
     /**
      * 积分消费id
      */
+    @ApiModelProperty("兑换积分id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 订单id
      */
+    @ApiModelProperty("订单id")
     private Integer order_id;
     /**
      * 消费积分个数
      */
+    @ApiModelProperty("消费积分个数")
     private Integer socer_num;
     /**
      * 用户id
      */
+    @ApiModelProperty("用户id")
     private Integer user_id;
     /**
      * 消费时间
      */
+    @ApiModelProperty("消费时间")
     private Date consum_time;
 
 
