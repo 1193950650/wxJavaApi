@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +31,7 @@ public class Integral_exchange_socerController {
     private IIntegral_exchange_socerService integral_exchange_socerService;
     @Autowired
     private IRedisService redisService;
-    @GetMapping("/add_integral_good")
+    @PostMapping("/add_integral_good")
     @ApiOperation("新增兑换")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),

@@ -12,12 +12,15 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -35,7 +38,7 @@ public class Sys_userController {
     private ISys_userService sys_userService;
     @Autowired
     private IRedisService redisService;
-    @GetMapping("/login")
+    @PostMapping("/login")
     @ApiOperation("微信用户登录")
     @ApiImplicitParams({@ApiImplicitParam(value="open_id",name="open_id",paramType="query",dataType="String")
     })
@@ -58,7 +61,7 @@ public class Sys_userController {
         return codeMessage;
     }
 
-    @GetMapping("/update_user_info")
+    @PostMapping("/update_user_info")
     @ApiOperation("更新用户微信信息")
     @ApiImplicitParams({@ApiImplicitParam(value="open_id",name="open_id",paramType="query",dataType="String")
       })
@@ -75,7 +78,7 @@ public class Sys_userController {
         return codeMessage;
     }
 
-    @GetMapping("/get_user_info")
+    @PostMapping("/get_user_info")
     @ApiOperation("获取用户微信信息")
     @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
@@ -105,7 +108,7 @@ public class Sys_userController {
         return codeMessage;
     }
 
-    @GetMapping("/delete_user")
+    @PostMapping("/delete_user")
     @ApiOperation("删除用户")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -134,11 +137,10 @@ public class Sys_userController {
         return codeMessage;
     }
 
-    @GetMapping("/add_user")
+    @PostMapping("/add_user")
     @ApiOperation("新增用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="用户信息",name="sys_user",paramType="query",dataType="Sys_user")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_user(HttpSession httpSession, String login_token,Sys_user sys_user){
         CodeMessage codeMessage=new CodeMessage();
@@ -152,14 +154,26 @@ public class Sys_userController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
-        if(sys_userService.insert(sys_user)){
+        EntityWrapper<Sys_user> ew=new EntityWrapper<>();
+        ew.eq("open_id",sys_user.getOpen_id());
+        List<Sys_user> sys_userList=sys_userService.selectList(ew);
+        if(sys_userList.size()>0){
+            //zcg
+            sys_user=sys_userList.get(0);
+            sys_user.setLogin_num(sys_user.getLogin_num()+1);
+            sys_user.setLast_login_time(new Date());
+            sys_userService.updateById(sys_user);
             codeMessage.setCode(200);
-            codeMessage.setMsg("新增用户成功");
+            codeMessage.setMsg("用户登录成功");
+            return  codeMessage;
         }else{
-            codeMessage.setCode(500);
-            codeMessage.setMsg("新增用户失败");
+            sys_user.setLogin_num(1);
+            sys_user.setLast_login_time(new Date());
+            sys_userService.insert(sys_user);
+            codeMessage.setCode(200);
+            codeMessage.setMsg("注册并登录成功");
+            return  codeMessage;
         }
-        return codeMessage;
     }
 
 }

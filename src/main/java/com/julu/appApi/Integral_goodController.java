@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +33,7 @@ public class Integral_goodController {
     private IIntegral_goodService integral_goodService;
     @Autowired
     private IRedisService redisService;
-    @GetMapping("/get_integral_good_list")
+    @PostMapping("/get_integral_good_list")
     @ApiOperation("获取商品列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -67,7 +67,7 @@ public class Integral_goodController {
         return codeMessage;
     }
 
-    @GetMapping("/get_integral_good")
+    @PostMapping("/get_integral_good")
     @ApiOperation("根据id获取商品信息")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -97,7 +97,7 @@ public class Integral_goodController {
         return codeMessage;
     }
 
-    @GetMapping("/update_integral_good")
+    @PostMapping("/update_integral_good")
     @ApiOperation("根据id修改商品信息")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -130,7 +130,7 @@ public class Integral_goodController {
         return codeMessage;
     }
 
-    @GetMapping("/update_sale_status")
+    @PostMapping("/update_sale_status")
     @ApiOperation("商品上架下架")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -167,7 +167,7 @@ public class Integral_goodController {
     }
 
 
-    @GetMapping("/delete_integral_good")
+    @PostMapping("/delete_integral_good")
     @ApiOperation("删除商品")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -200,7 +200,7 @@ public class Integral_goodController {
         return codeMessage;
     }
 
-    @GetMapping("/add_integral_good")
+    @PostMapping("/add_integral_good")
     @ApiOperation("新增商品")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),

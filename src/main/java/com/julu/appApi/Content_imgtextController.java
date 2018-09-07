@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +34,7 @@ public class Content_imgtextController {
     private IContent_imgtextService content_imgtextService;
     @Autowired
     private IRedisService redisService;
-    @GetMapping("/get_content_imgtext_list")
+    @PostMapping("/get_content_imgtext_list")
     @ApiOperation("获取图文列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -72,7 +72,7 @@ public class Content_imgtextController {
         return codeMessage;
     }
 
-    @GetMapping("/get_content_imgtext")
+    @PostMapping("/get_content_imgtext")
     @ApiOperation("根据id获取图文信息")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -102,7 +102,7 @@ public class Content_imgtextController {
         return codeMessage;
     }
 
-    @GetMapping("/update_content_imgtext")
+    @PostMapping("/update_content_imgtext")
     @ApiOperation("根据id修改图文信息")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -135,7 +135,7 @@ public class Content_imgtextController {
         return codeMessage;
     }
 
-    @GetMapping("/delete_content_imgtext")
+    @PostMapping("/delete_content_imgtext")
     @ApiOperation("删除图文")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),

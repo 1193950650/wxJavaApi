@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +31,7 @@ public class Content_broadcast_configController {
     private IContent_broadcast_configService content_broadcast_configService;
     @Autowired
     private IRedisService redisService;
-    @GetMapping("/get_content_broadcast_config")
+    @PostMapping("/get_content_broadcast_config")
     @ApiOperation("获取轮播配置")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
@@ -60,7 +60,7 @@ public class Content_broadcast_configController {
         return codeMessage;
     }
 
-    @GetMapping("/update_content_broadcast_config")
+    @PostMapping("/update_content_broadcast_config")
     @ApiOperation("修改轮播配置")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),

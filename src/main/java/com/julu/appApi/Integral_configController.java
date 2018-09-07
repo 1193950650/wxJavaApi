@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +32,7 @@ public class Integral_configController {
     @Autowired
     private IRedisService redisService;
 
-    @GetMapping("/get_integral_config")
+    @PostMapping("/get_integral_config")
     @ApiOperation("获取积分商城配置")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
@@ -61,7 +61,7 @@ public class Integral_configController {
         return codeMessage;
     }
 
-    @GetMapping("/update_integral_config")
+    @PostMapping("/update_integral_config")
     @ApiOperation("修改积分商城配置")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),

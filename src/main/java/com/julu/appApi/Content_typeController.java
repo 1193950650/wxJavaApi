@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +34,7 @@ public class Content_typeController {
     private IContent_typeService content_typeService;
     @Autowired
     private IRedisService redisService;
-    @GetMapping("/get_content_type_list")
+    @PostMapping("/get_content_type_list")
     @ApiOperation("获取分类列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -67,7 +67,7 @@ public class Content_typeController {
         }
         return codeMessage;
     }
-    @GetMapping("/get_content_type")
+    @PostMapping("/get_content_type")
     @ApiOperation("根据id获取分类信息")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -97,7 +97,7 @@ public class Content_typeController {
         return codeMessage;
     }
 
-    @GetMapping("/update_content_type")
+    @PostMapping("/update_content_type")
     @ApiOperation("根据id修改分类信息")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -130,7 +130,7 @@ public class Content_typeController {
         return codeMessage;
     }
 
-    @GetMapping("/delete_content_type")
+    @PostMapping("/delete_content_type")
     @ApiOperation("删除分类")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -163,7 +163,7 @@ public class Content_typeController {
         return codeMessage;
     }
 
-    @GetMapping("/add_content_type")
+    @PostMapping("/add_content_type")
     @ApiOperation("新增分类")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),

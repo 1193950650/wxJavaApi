@@ -46,7 +46,7 @@ file:
   url: /tmp/bs8082/data
 securityconfig:
   logoutsuccssurl: /login_out
-  permitall: /*/app/**,/doc.html,/user/web/getCode,/user/web/updateuserpassword,/user/web/updatepassword,/*.ico,/*.html,/images/**,/checkcode,/lib/**,/fonts/**,/js/**,/monitoring/findTestMacById,/testmacdata/searchTestmacData,/css/**"
+  permitall: /*/app/**,/doc.html,／doc-old.html,/send.html,/user/web/getCode,/user/web/updateuserpassword,/user/web/updatepassword,/*.ico,/*.html,/images/**,/checkcode,/lib/**,/fonts/**,/js/**,/monitoring/findTestMacById,/testmacdata/searchTestmacData,/css/**"
   deniedpage: /deny
   urlroles: /**/new/** = admin;
             /**/edit/** = admin,editor;

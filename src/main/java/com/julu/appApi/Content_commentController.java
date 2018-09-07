@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +34,7 @@ public class Content_commentController {
     private IContent_commentService content_commentService;
     @Autowired
     private IRedisService redisService;
-    @GetMapping("/get_content_comment_list")
+    @PostMapping("/get_content_comment_list")
     @ApiOperation("获取评论列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -69,7 +69,7 @@ public class Content_commentController {
         }
         return codeMessage;
     }
-    @GetMapping("/get_content_comment")
+    @PostMapping("/get_content_comment")
     @ApiOperation("根据id获取评论信息")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
@@ -98,7 +98,7 @@ public class Content_commentController {
         }
         return codeMessage;
     }
-    @GetMapping("/delete_content_comment")
+    @PostMapping("/delete_content_comment")
     @ApiOperation("删除评论")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
