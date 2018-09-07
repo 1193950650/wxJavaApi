@@ -144,18 +144,6 @@ public class Sys_userController {
     })
     public CodeMessage<LoginDto> add_user(HttpSession httpSession, String login_token,Sys_user sys_user){
         CodeMessage<LoginDto> codeMessage=new CodeMessage();
-        if(login_token==null || "".equals(login_token)){
-            codeMessage.setCode(403);
-            codeMessage.setMsg("token丢失");
-            return codeMessage;
-        }
-        if(!redisService.isAppLogin(login_token,true)){
-            codeMessage.setCode(401);
-            codeMessage.setMsg("未登录");
-            return codeMessage;
-        }
-
-
         EntityWrapper<Sys_user> ew=new EntityWrapper<>();
         ew.eq("open_id",sys_user.getOpen_id());
         List<Sys_user> sys_userList=sys_userService.selectList(ew);
