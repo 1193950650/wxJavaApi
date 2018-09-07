@@ -138,12 +138,12 @@ public class Sys_userController {
     }
 
     @PostMapping("/add_user")
-    @ApiOperation("新增用户")
+    @ApiOperation("用户新增+登录")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
-    public CodeMessage add_user(HttpSession httpSession, String login_token,Sys_user sys_user){
-        CodeMessage codeMessage=new CodeMessage();
+    public CodeMessage<LoginDto> add_user(HttpSession httpSession, String login_token,Sys_user sys_user){
+        CodeMessage<LoginDto> codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
             codeMessage.setMsg("token丢失");
@@ -154,6 +154,8 @@ public class Sys_userController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
+
+
         EntityWrapper<Sys_user> ew=new EntityWrapper<>();
         ew.eq("open_id",sys_user.getOpen_id());
         List<Sys_user> sys_userList=sys_userService.selectList(ew);
@@ -165,15 +167,18 @@ public class Sys_userController {
             sys_userService.updateById(sys_user);
             codeMessage.setCode(200);
             codeMessage.setMsg("用户登录成功");
-            return  codeMessage;
         }else{
             sys_user.setLogin_num(1);
             sys_user.setLast_login_time(new Date());
             sys_userService.insert(sys_user);
             codeMessage.setCode(200);
             codeMessage.setMsg("注册并登录成功");
-            return  codeMessage;
         }
+        LoginDto loginDto=new LoginDto();
+        String login_Token = redisService.putAppSession(httpSession,sys_user);
+        loginDto.setLogin_token(login_Token);
+        codeMessage.setData(loginDto);
+        return  codeMessage;
     }
 
 }
