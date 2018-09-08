@@ -100,8 +100,7 @@ public class Integral_goodController {
     @PostMapping("/update_integral_good")
     @ApiOperation("根据id修改商品信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="商品信息",name="integral_good",paramType="query",dataType="Integral_good")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage update_integral_good(String login_token,Integral_good integral_good){
         CodeMessage codeMessage=new CodeMessage();
@@ -203,8 +202,7 @@ public class Integral_goodController {
     @PostMapping("/add_integral_good")
     @ApiOperation("新增商品")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="用户信息",name="integral_good",paramType="query",dataType="Integral_good")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_integral_good(String login_token,Integral_good integral_good){
         CodeMessage codeMessage=new CodeMessage();

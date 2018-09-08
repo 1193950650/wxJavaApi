@@ -100,8 +100,7 @@ public class Content_typeController {
     @PostMapping("/update_content_type")
     @ApiOperation("根据id修改分类信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="分类信息",name="integral_good",paramType="query",dataType="Integral_good")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage update_content_type(String login_token,Content_type content_type){
         CodeMessage codeMessage=new CodeMessage();
@@ -166,8 +165,7 @@ public class Content_typeController {
     @PostMapping("/add_content_type")
     @ApiOperation("新增分类")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="分类信息",name="content_type",paramType="query",dataType="Content_type")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_content_type(String login_token,Content_type content_type){
         CodeMessage codeMessage=new CodeMessage();

@@ -105,8 +105,7 @@ public class Content_imgtextController {
     @PostMapping("/update_content_imgtext")
     @ApiOperation("根据id修改图文信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="图文信息",name="integral_good",paramType="query",dataType="Integral_good")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage update_content_type(String login_token,Content_imgtext content_imgtext){
         CodeMessage codeMessage=new CodeMessage();

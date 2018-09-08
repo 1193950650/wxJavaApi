@@ -64,8 +64,7 @@ public class Integral_configController {
     @PostMapping("/update_integral_config")
     @ApiOperation("修改积分商城配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="积分商城配置信息",name="integral_config",paramType="query",dataType="Integral_config")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage get_integral_config(String login_token,Integral_config integral_config){
         CodeMessage codeMessage=new CodeMessage();
