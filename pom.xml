@@ -223,17 +223,18 @@
              <snapshots>
                  <enabled>true</enabled>
              </snapshots>
-         </repository>--><!-- <repository>
+         </repository>-->
+	   <repository>
             <id>nexus-releases</id>
             <name>Nexus Release Repository</name>
-            <url>http://192.168.0.110:8081/nexus/content/groups/public/</url>
+            <url>http://47.93.225.125:8891/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>-->
+        </repository>
 		<repository>
 			<id>nexus-snapshots</id>
 			<name>Nexus Snapshot Repository</name>
