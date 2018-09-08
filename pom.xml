@@ -147,9 +147,9 @@
 			<version>${springfox-swagger2}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github.xiaoymin</groupId>
-			<artifactId>swagger-bootstrap-ui</artifactId>
-			<version>1.7.3</version>
+			<groupId>com.mhs.api</groupId>
+			<artifactId>swagger-test-ui</artifactId>
+			<version>1.0.5</version>
 		</dependency>
 		<!--Project-->
 		<dependency>
