@@ -44,6 +44,11 @@ public class Content_type extends Model<Content_type> {
      */
     @ApiModelProperty("排序")
     private Integer sort;
+    /**
+     * 图标
+     */
+    @ApiModelProperty("图标")
+    private  String icon;
 
 
     public Integer getId() {
@@ -90,6 +95,15 @@ public class Content_type extends Model<Content_type> {
         ", name=" + name +
         ", is_show=" + is_show +
         ", sort=" + sort +
+        ", icon=" + icon +
         "}";
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
