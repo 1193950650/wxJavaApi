@@ -5,10 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -16,9 +15,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-08-29
+ * @since 2018-09-09
  */
-@ApiModel("用户信息")
+@ApiModel("用户表")
 @TableName("wx_sys_user")
 public class Sys_user extends Model<Sys_user> {
 
@@ -27,7 +26,7 @@ public class Sys_user extends Model<Sys_user> {
     /**
      *  用户id
      */
-    @ApiModelProperty("用户id")
+    @ApiModelProperty(" 用户id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
@@ -65,6 +64,16 @@ public class Sys_user extends Model<Sys_user> {
      */
     @ApiModelProperty("登录次数")
     private Integer login_num;
+    /**
+     * 经度
+     */
+    @ApiModelProperty("经度")
+    private Double longi;
+    /**
+     * 纬度
+     */
+    @ApiModelProperty("纬度")
+    private Double lati;
 
 
     public Integer getId() {
@@ -131,6 +140,22 @@ public class Sys_user extends Model<Sys_user> {
         this.login_num = login_num;
     }
 
+    public Double getLongi() {
+        return longi;
+    }
+
+    public void setLongi(Double longi) {
+        this.longi = longi;
+    }
+
+    public Double getLati() {
+        return lati;
+    }
+
+    public void setLati(Double lati) {
+        this.lati = lati;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -147,6 +172,8 @@ public class Sys_user extends Model<Sys_user> {
         ", socer=" + socer +
         ", last_login_time=" + last_login_time +
         ", login_num=" + login_num +
+        ", longi=" + longi +
+        ", lati=" + lati +
         "}";
     }
 }

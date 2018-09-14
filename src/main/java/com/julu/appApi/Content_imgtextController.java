@@ -40,9 +40,11 @@ public class Content_imgtextController {
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="所属分类id",name="type_id",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="显示封面缩略图 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
-            @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String")
+            @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="经度,维度",name="point",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="排序 1：热门 2：最新 3：距离",name="order",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(String login_token,Integer type_id, Integer is_show, String name){
+    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(String login_token,Integer type_id, Integer is_show,Integer order,String point, String name){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -56,9 +58,29 @@ public class Content_imgtextController {
         }
         Page<Content_imgtext> page=new Page<>();
         EntityWrapper<Content_imgtext> ew=new EntityWrapper<>();
-        ew.eq("type_id",type_id);
-        ew.eq("is_show",is_show);
-        ew.like(true,"name",name);
+        if(type_id!=null && !"".equals(type_id)){
+            ew.eq("type_id",type_id);
+        }
+        if(is_show!=null){
+            ew.eq("is_show",is_show);
+        }else{
+            ew.eq("is_show",1);
+        }
+        if(name!=null && !"".equals(name)){
+            ew.like(true,"name",name);
+        }
+        if(order!=null && order>0){
+            if(order==1){
+                ew.orderBy("see_num");
+            }
+            if(order==2){
+                ew.orderBy("add_time");
+            }
+            if(order==3){
+                String[] points=point.split(",");
+                ew.orderBy("SQRT(("+points[0]+"-longitude)*("+points[0]+"-longitude)+("+points[1]+"-latitude)*("+points[1]+"-latitude)) ");
+            }
+        }
         page.setSize(10);
         try {
             page=content_imgtextService.selectPage(page,ew);
