@@ -72,14 +72,14 @@ public class Content_imgtextController {
         }
         if(order!=null && order>0){
             if(order==1){
-                ew.orderBy("see_num");
+                ew.orderBy("see_num",false);
             }
             if(order==2){
-                ew.orderBy("add_time");
+                ew.orderBy("add_time",false);
             }
             if(order==3){
                 String[] points=point.split(",");
-                ew.orderBy("SQRT(("+points[0]+"-longitude)*("+points[0]+"-longitude)+("+points[1]+"-latitude)*("+points[1]+"-latitude)) ");
+                ew.orderBy("SQRT(("+points[0]+"-longitude)*("+points[0]+"-longitude)+("+points[1]+"-latitude)*("+points[1]+"-latitude)) ",false);
             }
         }
         page.setSize(10);
