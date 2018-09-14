@@ -38,9 +38,10 @@ public class Content_typeController {
     @ApiOperation("获取分类列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="%分类名称%",name="name",paramType="query",dataType="String")
+            @ApiImplicitParam(value="%分类名称%",name="name",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_type>> get_content_type_list(String login_token,String name){
+    public CodeMessage<PageDto<Content_type>> get_content_type_list(String login_token,String name,Integer current){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -55,6 +56,9 @@ public class Content_typeController {
         Page<Content_type> page=new Page<>();
         EntityWrapper<Content_type> ew=new EntityWrapper<>();
         ew.like(true,"name",name);
+        if(current!=null && current>0){
+            page.setCurrent(current);
+        }
         page.setSize(10);
         try {
             page=content_typeService.selectPage(page,ew);

@@ -42,9 +42,10 @@ public class Content_imgtextController {
             @ApiImplicitParam(value="显示封面缩略图 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String"),
             @ApiImplicitParam(value="经度,维度",name="point",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="排序 1：热门 2：最新 3：距离",name="order",paramType="query",dataType="Integer")
+            @ApiImplicitParam(value="排序 1：热门 2：最新 3：距离",name="order",paramType="query",dataType="Integer"),
+            @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(String login_token,Integer type_id, Integer is_show,Integer order,String point, String name){
+    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(String login_token,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -82,6 +83,9 @@ public class Content_imgtextController {
             }
         }
         page.setSize(10);
+        if(current!=null && current>0){
+            page.setCurrent(current);
+        }
         try {
             page=content_imgtextService.selectPage(page,ew);
             codeMessage.setCode(200);
