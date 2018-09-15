@@ -72,7 +72,7 @@ public class pubController {
 
     //显示图片的方法关键 匹配路径像
     @ApiOperation("获取文件服务")
-    @PostMapping(value = "/app/fileserver/{filename:.+}")
+    @GetMapping(value = "/app/fileserver/{filename:.+}")
     @ResponseBody
     public ResponseEntity<?> getFile(@PathVariable String filename) {
         try {
