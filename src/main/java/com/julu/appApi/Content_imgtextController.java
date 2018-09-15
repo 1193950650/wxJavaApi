@@ -127,6 +127,37 @@ public class Content_imgtextController {
         }
         return codeMessage;
     }
+    @PostMapping("/add_content_imgtext")
+    @ApiOperation("新增图文信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+    })
+    public CodeMessage add_content_imgtext(String login_token,Content_imgtext content_imgtext){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return  codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+        try {
+            if(content_imgtextService.insert(content_imgtext)){
+                codeMessage.setCode(200);
+                codeMessage.setMsg("新增图文分类信息成功");
+            }else{
+                codeMessage.setCode(500);
+                codeMessage.setMsg("新增图文分类信息失败");
+            }
+        }catch (Exception e){
+            codeMessage.setCode(500);
+            codeMessage.setMsg("新增图文信息失败");
+        }
+        return codeMessage;
+    }
 
     @PostMapping("/update_content_imgtext")
     @ApiOperation("根据id修改图文信息")
@@ -148,10 +179,10 @@ public class Content_imgtextController {
         try {
             if(content_imgtextService.updateById(content_imgtext)){
                 codeMessage.setCode(200);
-                codeMessage.setMsg("图文分类信息成功");
+                codeMessage.setMsg("更新图文分类信息成功");
             }else{
                 codeMessage.setCode(500);
-                codeMessage.setMsg("图文分类信息失败");
+                codeMessage.setMsg("更新图文分类信息失败");
             }
         }catch (Exception e){
             codeMessage.setCode(500);
