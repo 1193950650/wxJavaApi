@@ -11,49 +11,53 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 内容-评论
+ * 图文-评论-回复
  * </p>
  *
  * @author mhs
  * @since 2018-09-16
  */
-@ApiModel("内容-评论")
-@TableName("wx_content_comment")
-public class Content_comment extends Model<Content_comment> {
+@ApiModel("图文-评论-回复")
+@TableName("wx_content_reply")
+public class Content_reply extends Model<Content_reply> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 评论回复id
+     */
+    @ApiModelProperty("评论回复id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 图文内容id
+     * 评论id
      */
-    @ApiModelProperty("图文内容id")
-    private Integer imgtext_id;
+    @ApiModelProperty("评论id")
+    private Integer comment_id;
     /**
-     * 用户id
+     * 回复内容
      */
-    @ApiModelProperty("用户id")
-    private String open_id;
+    @ApiModelProperty("回复内容")
+    private String cotent;
     /**
-     * 显示 0不显示 1显示
+     * 用户唯一标识
      */
-    @ApiModelProperty("显示 0不显示 1显示")
-    private Integer is_show;
+    @ApiModelProperty("用户唯一标识")
+    private String openid;
     /**
      * 用户姓名
      */
     @ApiModelProperty("用户姓名")
     private String user_name;
     /**
-     * 用户头像
+     * 被回复者姓名
      */
-    @ApiModelProperty("用户头像")
-    private String user_icon;
+    @ApiModelProperty("被回复者姓名")
+    private String reply_name;
     /**
-     * 评论时间
+     * 回复时间
      */
-    @ApiModelProperty("评论时间")
+    @ApiModelProperty("回复时间")
     private Date add_time;
 
 
@@ -65,28 +69,28 @@ public class Content_comment extends Model<Content_comment> {
         this.id = id;
     }
 
-    public Integer getImgtext_id() {
-        return imgtext_id;
+    public Integer getComment_id() {
+        return comment_id;
     }
 
-    public void setImgtext_id(Integer imgtext_id) {
-        this.imgtext_id = imgtext_id;
+    public void setComment_id(Integer comment_id) {
+        this.comment_id = comment_id;
     }
 
-    public String getOpen_id() {
-        return open_id;
+    public String getCotent() {
+        return cotent;
     }
 
-    public void setOpen_id(String open_id) {
-        this.open_id = open_id;
+    public void setCotent(String cotent) {
+        this.cotent = cotent;
     }
 
-    public Integer getIs_show() {
-        return is_show;
+    public String getOpenid() {
+        return openid;
     }
 
-    public void setIs_show(Integer is_show) {
-        this.is_show = is_show;
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 
     public String getUser_name() {
@@ -97,12 +101,12 @@ public class Content_comment extends Model<Content_comment> {
         this.user_name = user_name;
     }
 
-    public String getUser_icon() {
-        return user_icon;
+    public String getReply_name() {
+        return reply_name;
     }
 
-    public void setUser_icon(String user_icon) {
-        this.user_icon = user_icon;
+    public void setReply_name(String reply_name) {
+        this.reply_name = reply_name;
     }
 
     public Date getAdd_time() {
@@ -120,13 +124,13 @@ public class Content_comment extends Model<Content_comment> {
 
     @Override
     public String toString() {
-        return "Content_comment{" +
+        return "Content_reply{" +
         ", id=" + id +
-        ", imgtext_id=" + imgtext_id +
-        ", open_id=" + open_id +
-        ", is_show=" + is_show +
+        ", comment_id=" + comment_id +
+        ", cotent=" + cotent +
+        ", openid=" + openid +
         ", user_name=" + user_name +
-        ", user_icon=" + user_icon +
+        ", reply_name=" + reply_name +
         ", add_time=" + add_time +
         "}";
     }

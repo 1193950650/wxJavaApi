@@ -1,7 +1,6 @@
 package com.julu.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-import java.math.BigDecimal;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
@@ -16,7 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author mhs
- * @since 2018-09-15
+ * @since 2018-09-16
  */
 @ApiModel("内容-图文")
 @TableName("wx_content_imgtext")
@@ -104,12 +103,12 @@ public class Content_imgtext extends Model<Content_imgtext> {
      * 位置-经度
      */
     @ApiModelProperty("位置-经度")
-    private BigDecimal longitude;
+    private String longitude;
     /**
      * 位置-维度
      */
     @ApiModelProperty("位置-维度")
-    private BigDecimal latitude;
+    private String latitude;
     /**
      * 作者openId
      */
@@ -125,6 +124,16 @@ public class Content_imgtext extends Model<Content_imgtext> {
      */
     @ApiModelProperty("作者头像")
     private String author_icon;
+    /**
+     * 联系电话
+     */
+    @ApiModelProperty("联系电话")
+    private String phone;
+    /**
+     * 所属模块 0首页-状态 1资讯-图文 2                                                                         资讯-视频
+     */
+    @ApiModelProperty("所属模块 0首页-状态 1资讯-图文 2资讯-视频 ")
+    private Integer modle;
 
 
     public Integer getId() {
@@ -247,19 +256,19 @@ public class Content_imgtext extends Model<Content_imgtext> {
         this.add_time = add_time;
     }
 
-    public BigDecimal getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(BigDecimal longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public BigDecimal getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(BigDecimal latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
@@ -285,6 +294,22 @@ public class Content_imgtext extends Model<Content_imgtext> {
 
     public void setAuthor_icon(String author_icon) {
         this.author_icon = author_icon;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getModle() {
+        return modle;
+    }
+
+    public void setModle(Integer modle) {
+        this.modle = modle;
     }
 
     @Override
@@ -315,6 +340,8 @@ public class Content_imgtext extends Model<Content_imgtext> {
         ", openid=" + openid +
         ", address=" + address +
         ", author_icon=" + author_icon +
+        ", phone=" + phone +
+        ", modle=" + modle +
         "}";
     }
 }

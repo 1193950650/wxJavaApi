@@ -4,10 +4,9 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -15,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-09-09
+ * @since 2018-09-16
  */
 @ApiModel("内容-分类")
 @TableName("wx_content_type")
@@ -49,6 +48,11 @@ public class Content_type extends Model<Content_type> {
      */
     @ApiModelProperty("图标")
     private String icon;
+    /**
+     * 所属模块 0首页 1资讯 
+     */
+    @ApiModelProperty("所属模块 0首页 1资讯 ")
+    private Integer modle;
 
 
     public Integer getId() {
@@ -91,6 +95,14 @@ public class Content_type extends Model<Content_type> {
         this.icon = icon;
     }
 
+    public Integer getModle() {
+        return modle;
+    }
+
+    public void setModle(Integer modle) {
+        this.modle = modle;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -104,6 +116,7 @@ public class Content_type extends Model<Content_type> {
         ", is_show=" + is_show +
         ", sort=" + sort +
         ", icon=" + icon +
+        ", modle=" + modle +
         "}";
     }
 }

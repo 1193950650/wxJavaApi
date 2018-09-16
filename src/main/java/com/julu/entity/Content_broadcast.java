@@ -4,10 +4,9 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -15,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-08-31
+ * @since 2018-09-16
  */
 @ApiModel("内容-轮播管理")
 @TableName("wx_content_broadcast")
@@ -54,6 +53,11 @@ public class Content_broadcast extends Model<Content_broadcast> {
      */
     @ApiModelProperty("排序")
     private String sort;
+    /**
+     * 所属模块 0首页 1资讯 
+     */
+    @ApiModelProperty("所属模块 0首页 1资讯 ")
+    private Integer modle;
 
 
     public Integer getId() {
@@ -104,6 +108,14 @@ public class Content_broadcast extends Model<Content_broadcast> {
         this.sort = sort;
     }
 
+    public Integer getModle() {
+        return modle;
+    }
+
+    public void setModle(Integer modle) {
+        this.modle = modle;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -118,6 +130,7 @@ public class Content_broadcast extends Model<Content_broadcast> {
         ", url=" + url +
         ", is_show=" + is_show +
         ", sort=" + sort +
+        ", modle=" + modle +
         "}";
     }
 }

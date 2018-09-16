@@ -4,19 +4,28 @@ package com.julu.appApi;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
+import com.julu.dto.Content_commentDto;
 import com.julu.dto.PageDto;
 import com.julu.entity.Content_comment;
+import com.julu.entity.Content_reply;
+import com.julu.entity.Sys_user;
 import com.julu.service.IContent_commentService;
+import com.julu.service.IContent_replyService;
 import com.julu.service.IRedisService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * <p>
@@ -34,14 +43,16 @@ public class Content_commentController {
     private IContent_commentService content_commentService;
     @Autowired
     private IRedisService redisService;
+    @Autowired
+    private IContent_replyService content_replyService;
     @PostMapping("/get_content_comment_list")
-    @ApiOperation("获取评论列表")
+    @ApiOperation("根据图文id获取评论列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="显示 0不显示 1显示",name="type_id",paramType="query",dataType="Integer"),
-            @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String")
+            @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer")
+
     })
-    public CodeMessage<PageDto<Content_comment>> get_content_comment_list(String login_token,Integer is_show, String name){
+    public CodeMessage<List<Content_commentDto>> get_content_comment_list(String login_token, Integer id){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -53,22 +64,31 @@ public class Content_commentController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
-        Page<Content_comment> page=new Page<>();
         EntityWrapper<Content_comment> ew=new EntityWrapper<>();
-        ew.eq("is_show",is_show);
-        ew.like(true,"name",name);
-        page.setSize(10);
+        ew.eq("imgtext_id",id);
         try {
-            page=content_commentService.selectPage(page,ew);
+            LinkedList<Content_commentDto> content_commentDtos=new LinkedList<>();
+            List<Content_comment> list=content_commentService.selectList(ew);
+            EntityWrapper<Content_reply> ew1=new EntityWrapper<>();
+            for (Content_comment content_comment: list){
+                Content_commentDto content_commentDto=new Content_commentDto();
+                ew1.eq("comment_id",content_comment.getId());
+                List<Content_reply> content_replies=content_replyService.selectList(ew1);
+                BeanUtils.copyProperties(content_comment,content_commentDto);
+                content_commentDto.setContent_replies(content_replies);
+                content_commentDtos.add(content_commentDto);
+            }
             codeMessage.setCode(200);
             codeMessage.setMsg("查询评论列表成功");
-            codeMessage.setData(page);
+            codeMessage.setData(content_commentDtos);
         }catch (Exception e){
             codeMessage.setCode(500);
             codeMessage.setMsg("查询评论列表失败");
         }
         return codeMessage;
     }
+
+
     @PostMapping("/get_content_comment")
     @ApiOperation("根据id获取评论信息")
     @ApiImplicitParams({
@@ -127,6 +147,78 @@ public class Content_commentController {
         }catch (Exception e){
             codeMessage.setCode(500);
             codeMessage.setMsg("删除评论失败");
+        }
+        return codeMessage;
+    }
+
+    @PostMapping("/add_content_comment")
+    @ApiOperation("新增评论")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+    })
+    public CodeMessage add_content_comment(String login_token,Content_comment content_comment){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return  codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+        try {
+            Sys_user sys_user=redisService.getAppFuser(login_token);
+            content_comment.setIs_show(1);
+            content_comment.setOpen_id(sys_user.getOpen_id());
+            content_comment.setUser_icon(sys_user.getUser_name());
+            content_comment.setAdd_time(new Date());
+            if(content_commentService.insert(content_comment)){
+                codeMessage.setCode(200);
+                codeMessage.setMsg("新增评论成功");
+            }else{
+                codeMessage.setCode(500);
+                codeMessage.setMsg("新增评论失败");
+            }
+        }catch (Exception e){
+            codeMessage.setCode(500);
+            codeMessage.setMsg("新增评论失败");
+        }
+        return codeMessage;
+    }
+
+    @PostMapping("/add_content_comment_reply")
+    @ApiOperation("新增评论回复")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+    })
+    public CodeMessage add_content_comment_reply(String login_token,Content_reply content_reply){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return  codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+        try {
+            Sys_user sys_user=redisService.getAppFuser(login_token);
+            content_reply.setOpenid(sys_user.getOpen_id());
+            content_reply.setReply_name(sys_user.getUser_name());
+            if(content_replyService.insert(content_reply)){
+                codeMessage.setCode(200);
+                codeMessage.setMsg("新增评论回复成功");
+            }else{
+                codeMessage.setCode(500);
+                codeMessage.setMsg("新增评论回复失败");
+            }
+        }catch (Exception e){
+            codeMessage.setCode(500);
+            codeMessage.setMsg("新增评论回复失败");
         }
         return codeMessage;
     }

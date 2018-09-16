@@ -2,9 +2,7 @@ package com.julu.appApi;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
-import com.julu.dto.PageDto;
 import com.julu.entity.Content_type;
 import com.julu.service.IContent_typeService;
 import com.julu.service.IRedisService;
@@ -17,6 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * <p>
@@ -39,9 +40,9 @@ public class Content_typeController {
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="%分类名称%",name="name",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer")
+            @ApiImplicitParam(value="所属模块 0首页 1资讯",name="modle",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_type>> get_content_type_list(String login_token,String name,Integer current){
+    public CodeMessage<List<Content_type>> get_content_type_list(String login_token, String name,Integer modle){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -53,18 +54,31 @@ public class Content_typeController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
-        Page<Content_type> page=new Page<>();
         EntityWrapper<Content_type> ew=new EntityWrapper<>();
-        ew.like(true,"name",name);
-        if(current!=null && current>0){
-            page.setCurrent(current);
+        if(name!=null && !"".equals(name)){
+            ew.like(true,"name",name);
         }
-        page.setSize(10);
+        ew.eq("is_show",1);
+        if(modle!=null && !"".equals(modle)){
+            ew.eq("modle",modle);
+        }
         try {
-            page=content_typeService.selectPage(page,ew);
+            List<Content_type> list=content_typeService.selectList(ew);
+            LinkedList<LinkedList<Content_type>> res_list=new LinkedList<>();
+            LinkedList<Content_type> item_list=new LinkedList<>();
+            for (int i=0;i<list.size();i++){
+                item_list.add(list.get(i));
+                if(i>=7&&i%7==0){
+                    res_list.add(item_list);
+                    item_list=new LinkedList<>();
+                }
+                if(i==list.size()-1){
+                    res_list.add(item_list);
+                }
+            }
             codeMessage.setCode(200);
             codeMessage.setMsg("查询分类列表成功");
-            codeMessage.setData(page);
+            codeMessage.setData(res_list);
         }catch (Exception e){
             codeMessage.setCode(500);
             codeMessage.setMsg("查询分类列表失败");
