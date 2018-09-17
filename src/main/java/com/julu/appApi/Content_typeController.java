@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -106,7 +107,7 @@ public class Content_typeController {
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
-    public CodeMessage update_content_type(String login_token,Content_type content_type){
+    public CodeMessage update_content_type(String login_token, Content_type content_type){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);

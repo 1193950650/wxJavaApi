@@ -1,7 +1,5 @@
 package com.julu.config.security;
-import com.julu.handler.CustomUserDetailsService;
-import com.julu.handler.LoginFailureHandler;
-import com.julu.handler.LoginSuccessHandler;
+import com.julu.handler.*;
 
 import com.julu.utils.MD5;
 import org.apache.commons.logging.Log;
@@ -20,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
 import javax.sql.DataSource;
@@ -43,6 +42,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private SecuritySettings settings;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Autowired
+    private EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
+    @Autowired
+    private RestAccessDeniedHandler restAccessDeniedHandler;
     @Autowired
     @Qualifier("dataSource")
     private DataSource dataSource;
@@ -68,6 +73,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.headers().frameOptions().disable();
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.exceptionHandling().authenticationEntryPoint(entryPointUnauthorizedHandler).accessDeniedHandler(restAccessDeniedHandler);
         http.formLogin().loginPage("/login").permitAll().successHandler(loginSuccessHandler()).failureHandler(loginFailureHandler())//指定登陆页面url
                 .and().authorizeRequests()
                // .antMatchers("/*/app/**","/doc.html","/","/*.html","/images/**", "/checkcode", "/lib/**","/fonts/**","/js/**", "/css/**").permitAll() //完全允许访问的url
