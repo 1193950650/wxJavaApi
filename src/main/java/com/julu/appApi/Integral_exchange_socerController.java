@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -34,9 +35,9 @@ public class Integral_exchange_socerController {
     @PostMapping("/add_integral_good")
     @ApiOperation("新增兑换")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
     })
-    public CodeMessage add_integral_good(String login_token, Integral_exchange_socer integral_exchange_socer){
+    public CodeMessage add_integral_good(@RequestHeader String login_token, Integral_exchange_socer integral_exchange_socer){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);

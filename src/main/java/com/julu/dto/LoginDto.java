@@ -8,14 +8,14 @@ import io.swagger.annotations.ApiModelProperty;
 public class LoginDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @ApiModelProperty(value = "登录状态的token")
-    private String login_token;
+    private  String login_token;
 
 
     public String getLogin_token() {
         return login_token;
     }
 
-    public void setLogin_token(String login_token) {
+    public void setLogin_token( String login_token) {
         this.login_token = login_token;
     }
 }

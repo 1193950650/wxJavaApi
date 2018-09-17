@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -35,9 +36,9 @@ public class Integral_configController {
     @PostMapping("/get_integral_config")
     @ApiOperation("获取积分商城配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
     })
-    public CodeMessage<Integral_config> get_integral_config(String login_token){
+    public CodeMessage<Integral_config> get_integral_config(@RequestHeader String login_token){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -64,9 +65,9 @@ public class Integral_configController {
     @PostMapping("/update_integral_config")
     @ApiOperation("修改积分商城配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
     })
-    public CodeMessage get_integral_config(String login_token,Integral_config integral_config){
+    public CodeMessage get_integral_config(@RequestHeader String login_token,Integral_config integral_config){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);

@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -50,7 +51,7 @@ public class Sys_userController {
                 if(sys_user!=null){
                     codeMessage.setCode(200);
                     codeMessage.setMsg("登录成功");
-                    String login_Token = redisService.putAppSession(httpSession,sys_user);
+                     String login_Token = redisService.putAppSession(httpSession,sys_user);
                     loginDto.setLogin_token(login_Token);
                     codeMessage.setData(login_Token);
                }else{
@@ -79,9 +80,9 @@ public class Sys_userController {
 
     @PostMapping("/get_user_info")
     @ApiOperation("获取用户微信信息")
-    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
     })
-    public CodeMessage<Sys_user> get_user_info(HttpSession httpSession, String login_token){
+    public CodeMessage<Sys_user> get_user_info(HttpSession httpSession, @RequestHeader String login_token){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -110,10 +111,10 @@ public class Sys_userController {
     @PostMapping("/delete_user")
     @ApiOperation("删除用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
             @ApiImplicitParam(value="待删除用户id",name="id",paramType="query",dataType="Integer")
     })
-    public CodeMessage delete_user(HttpSession httpSession, String login_token,Integer id){
+    public CodeMessage delete_user(HttpSession httpSession, @RequestHeader String login_token,Integer id){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -139,9 +140,9 @@ public class Sys_userController {
     @PostMapping("/add_user")
     @ApiOperation("用户新增+登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
     })
-    public CodeMessage<LoginDto> add_user(HttpSession httpSession, String login_token,Sys_user sys_user){
+    public CodeMessage<LoginDto> add_user(HttpSession httpSession,Sys_user sys_user){
         CodeMessage<LoginDto> codeMessage=new CodeMessage();
         EntityWrapper<Sys_user> ew=new EntityWrapper<>();
         ew.eq("open_id",sys_user.getOpen_id());
@@ -162,8 +163,8 @@ public class Sys_userController {
             codeMessage.setMsg("注册并登录成功");
         }
         LoginDto loginDto=new LoginDto();
-        String login_Token = redisService.putAppSession(httpSession,sys_user);
-        loginDto.setLogin_token(login_Token);
+        String login_token = redisService.putAppSession(httpSession,sys_user);
+        loginDto.setLogin_token(login_token);
         codeMessage.setData(loginDto);
         return  codeMessage;
     }

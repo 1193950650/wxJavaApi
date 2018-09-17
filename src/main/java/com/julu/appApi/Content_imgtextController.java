@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,7 @@ public class Content_imgtextController {
     @PostMapping("/get_content_imgtext_list")
     @ApiOperation("获取图文列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
             @ApiImplicitParam(value="所属分类id",name="type_id",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="显示封面缩略图 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String"),
@@ -50,7 +51,7 @@ public class Content_imgtextController {
             @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="所属模块 0首页-状态 1资讯-图文 2资讯-视频",name="modle",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(String login_token,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle){
+    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(@RequestHeader String login_token,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -111,10 +112,10 @@ public class Content_imgtextController {
     @PostMapping("/get_content_imgtext")
     @ApiOperation("根据id获取图文信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
             @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer")
     })
-    public CodeMessage<Content_imgtext> get_content_type(String login_token,Integer id){
+    public CodeMessage<Content_imgtext> get_content_type(@RequestHeader String login_token,Integer id){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -142,10 +143,10 @@ public class Content_imgtextController {
     @PostMapping("/add_dz_num")
     @ApiOperation("增加点赞")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
             @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer"),
     })
-    public CodeMessage add_dz_num(String login_token,Integer id){
+    public CodeMessage add_dz_num(@RequestHeader String login_token,Integer id){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -177,9 +178,9 @@ public class Content_imgtextController {
     @PostMapping("/add_content_imgtext")
     @ApiOperation("新增图文信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
     })
-    public CodeMessage add_content_imgtext(String login_token,Content_imgtext content_imgtext){
+    public CodeMessage add_content_imgtext(@RequestHeader String login_token,Content_imgtext content_imgtext){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -220,9 +221,9 @@ public class Content_imgtextController {
     @PostMapping("/update_content_imgtext")
     @ApiOperation("根据id修改图文信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
     })
-    public CodeMessage update_content_type(String login_token,Content_imgtext content_imgtext){
+    public CodeMessage update_content_type(@RequestHeader String login_token, Content_imgtext content_imgtext){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -253,10 +254,10 @@ public class Content_imgtextController {
     @PostMapping("/delete_content_imgtext")
     @ApiOperation("删除图文")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
             @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer")
     })
-    public CodeMessage delete_content_imgtext(String login_token,Integer id){
+    public CodeMessage delete_content_imgtext(@RequestHeader String login_token,Integer id){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
