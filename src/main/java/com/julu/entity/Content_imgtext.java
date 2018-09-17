@@ -1,13 +1,13 @@
 package com.julu.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-08-31
+ * @since 2018-09-16
  */
 @ApiModel("内容-图文")
 @TableName("wx_content_imgtext")
@@ -65,15 +65,75 @@ public class Content_imgtext extends Model<Content_imgtext> {
     @ApiModelProperty("关键词标签用逗号分隔")
     private String word_tags;
     /**
-     * 是否付费
+     * 是否付费 0不付费 1付费
      */
-    @ApiModelProperty("是否付费")
+    @ApiModelProperty("是否付费 0不付费 1付费")
     private Integer is_pay;
     /**
      * 文章内容
      */
     @ApiModelProperty("文章内容")
     private String content;
+    /**
+     * 观看数
+     */
+    @ApiModelProperty("观看数")
+    private Integer see_num;
+    /**
+     * 点赞数
+     */
+    @ApiModelProperty("点赞数")
+    private Integer dz_num;
+    /**
+     * 评论数
+     */
+    @ApiModelProperty("评论数")
+    private Integer write_num;
+    /**
+     * 置顶 0不 1要
+     */
+    @ApiModelProperty("置顶 0不 1要")
+    private Integer is_top;
+    /**
+     * 发布时间
+     */
+    @ApiModelProperty("发布时间")
+    private Date add_time;
+    /**
+     * 位置-经度
+     */
+    @ApiModelProperty("位置-经度")
+    private String longitude;
+    /**
+     * 位置-维度
+     */
+    @ApiModelProperty("位置-维度")
+    private String latitude;
+    /**
+     * 作者openId
+     */
+    @ApiModelProperty("作者openId")
+    private String openid;
+    /**
+     * 地址
+     */
+    @ApiModelProperty("地址")
+    private String address;
+    /**
+     * 作者头像
+     */
+    @ApiModelProperty("作者头像")
+    private String author_icon;
+    /**
+     * 联系电话
+     */
+    @ApiModelProperty("联系电话")
+    private String phone;
+    /**
+     * 所属模块 0首页-状态 1资讯-图文 2                                                                         资讯-视频
+     */
+    @ApiModelProperty("所属模块 0首页-状态 1资讯-图文 2资讯-视频 ")
+    private Integer modle;
 
 
     public Integer getId() {
@@ -156,6 +216,102 @@ public class Content_imgtext extends Model<Content_imgtext> {
         this.content = content;
     }
 
+    public Integer getSee_num() {
+        return see_num;
+    }
+
+    public void setSee_num(Integer see_num) {
+        this.see_num = see_num;
+    }
+
+    public Integer getDz_num() {
+        return dz_num;
+    }
+
+    public void setDz_num(Integer dz_num) {
+        this.dz_num = dz_num;
+    }
+
+    public Integer getWrite_num() {
+        return write_num;
+    }
+
+    public void setWrite_num(Integer write_num) {
+        this.write_num = write_num;
+    }
+
+    public Integer getIs_top() {
+        return is_top;
+    }
+
+    public void setIs_top(Integer is_top) {
+        this.is_top = is_top;
+    }
+
+    public Date getAdd_time() {
+        return add_time;
+    }
+
+    public void setAdd_time(Date add_time) {
+        this.add_time = add_time;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAuthor_icon() {
+        return author_icon;
+    }
+
+    public void setAuthor_icon(String author_icon) {
+        this.author_icon = author_icon;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getModle() {
+        return modle;
+    }
+
+    public void setModle(Integer modle) {
+        this.modle = modle;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -174,6 +330,18 @@ public class Content_imgtext extends Model<Content_imgtext> {
         ", word_tags=" + word_tags +
         ", is_pay=" + is_pay +
         ", content=" + content +
+        ", see_num=" + see_num +
+        ", dz_num=" + dz_num +
+        ", write_num=" + write_num +
+        ", is_top=" + is_top +
+        ", add_time=" + add_time +
+        ", longitude=" + longitude +
+        ", latitude=" + latitude +
+        ", openid=" + openid +
+        ", address=" + address +
+        ", author_icon=" + author_icon +
+        ", phone=" + phone +
+        ", modle=" + modle +
         "}";
     }
 }

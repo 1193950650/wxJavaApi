@@ -1,6 +1,6 @@
 #测试环境配置文件
 server:
-  port: 80
+  port: 9091
   session-timeout: 60
   tomcat:
       uri-encoding: UTF-8
@@ -31,9 +31,9 @@ spring:
           max-request-size: 100Mb   # Max request size
     redis:
       database: 0
-      host: 47.93.225.125
+      host: 132.232.87.134
       port: 6379
-      password: 123456
+      password: mhs123%
       timeout: 0
       max-active: 8
       max-wait: -1

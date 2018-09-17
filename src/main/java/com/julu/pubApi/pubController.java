@@ -10,6 +10,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -37,7 +38,7 @@ public class pubController {
      * @return
      */
     @ApiOperation("上传文件服务")
-    @PostMapping("/fileserver/app/upload")
+    @PostMapping("/app/fileserver/upload")
     @ResponseBody
     public CodeMessage<FileConfig> uploadFile(@ApiParam(type = "MultipartFile") MultipartFile file) {
         // System.out.println(request.getHeader("Content-Type"));
@@ -71,7 +72,7 @@ public class pubController {
 
     //显示图片的方法关键 匹配路径像
     @ApiOperation("获取文件服务")
-    @PostMapping(value = "/fileserver/app/{filename:.+}")
+    @GetMapping(value = "/app/fileserver/{filename:.+}")
     @ResponseBody
     public ResponseEntity<?> getFile(@PathVariable String filename) {
         try {
@@ -113,6 +114,15 @@ public class pubController {
         int pos = fileName.lastIndexOf(".");
         String file = UUID.randomUUID().toString().replaceAll("-", "");
         return file + fileName.substring(pos);
+    }
+
+    public Boolean isLogin(HttpServletRequest request){
+        String login_token=request.getHeader("login_token");
+        if(login_token!=null && !"".equals(login_token)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
