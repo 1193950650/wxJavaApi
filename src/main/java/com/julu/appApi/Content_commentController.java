@@ -49,7 +49,7 @@ public class Content_commentController {
     @PostMapping("/get_content_comment_list")
     @ApiOperation("根据图文id获取评论列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer")
 
     })
@@ -93,7 +93,7 @@ public class Content_commentController {
     @PostMapping("/get_content_comment")
     @ApiOperation("根据id获取评论信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="评论id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage<Content_comment> get_content_comment(@RequestHeader String login_token,Integer id){
@@ -122,7 +122,7 @@ public class Content_commentController {
     @PostMapping("/delete_content_comment")
     @ApiOperation("删除评论")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="评论id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage delete_content_comment(@RequestHeader String login_token,Integer id){
@@ -155,7 +155,7 @@ public class Content_commentController {
     @PostMapping("/add_content_comment")
     @ApiOperation("新增评论")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_content_comment(@RequestHeader String login_token, Content_comment content_comment){
         CodeMessage codeMessage=new CodeMessage();
@@ -192,7 +192,7 @@ public class Content_commentController {
     @PostMapping("/add_content_comment_reply")
     @ApiOperation("新增评论回复")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_content_comment_reply(@RequestHeader String login_token,Content_reply content_reply){
         CodeMessage codeMessage=new CodeMessage();

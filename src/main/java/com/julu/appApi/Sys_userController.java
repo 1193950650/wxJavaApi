@@ -80,7 +80,7 @@ public class Sys_userController {
 
     @PostMapping("/get_user_info")
     @ApiOperation("获取用户微信信息")
-    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+    @ApiImplicitParams({@ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage<Sys_user> get_user_info(HttpSession httpSession, @RequestHeader String login_token){
         CodeMessage codeMessage=new CodeMessage();
@@ -111,7 +111,7 @@ public class Sys_userController {
     @PostMapping("/delete_user")
     @ApiOperation("删除用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="待删除用户id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage delete_user(HttpSession httpSession, @RequestHeader String login_token,Integer id){
@@ -140,7 +140,7 @@ public class Sys_userController {
     @PostMapping("/add_user")
     @ApiOperation("用户新增+登录")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage<LoginDto> add_user(HttpSession httpSession,Sys_user sys_user){
         CodeMessage<LoginDto> codeMessage=new CodeMessage();
@@ -156,6 +156,7 @@ public class Sys_userController {
             codeMessage.setCode(200);
             codeMessage.setMsg("用户登录成功");
         }else{
+            if(sys_user.getOpen_id()!=null && !"".equals(sys_user.getOpen_id()))
             sys_user.setLogin_num(1);
             sys_user.setLast_login_time(new Date());
             sys_userService.insert(sys_user);

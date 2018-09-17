@@ -39,7 +39,7 @@ public class Content_typeController {
     @PostMapping("/get_content_type_list")
     @ApiOperation("获取分类列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="%分类名称%",name="name",paramType="query",dataType="String"),
             @ApiImplicitParam(value="所属模块 0首页 1资讯",name="modle",paramType="query",dataType="Integer")
     })
@@ -89,7 +89,7 @@ public class Content_typeController {
     @PostMapping("/get_content_type")
     @ApiOperation("根据id获取分类信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="分类id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage<Content_type> get_content_type(@RequestHeader String login_token,Integer id){
@@ -119,7 +119,7 @@ public class Content_typeController {
     @PostMapping("/update_content_type")
     @ApiOperation("根据id修改分类信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage update_content_type(@RequestHeader String login_token, Content_type content_type){
         CodeMessage codeMessage=new CodeMessage();
@@ -151,7 +151,7 @@ public class Content_typeController {
     @PostMapping("/delete_content_type")
     @ApiOperation("删除分类")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="分类id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage delete_content_type(@RequestHeader String login_token,Integer id){
@@ -184,7 +184,7 @@ public class Content_typeController {
     @PostMapping("/add_content_type")
     @ApiOperation("新增分类")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_content_type(@RequestHeader String login_token,Content_type content_type){
         CodeMessage codeMessage=new CodeMessage();

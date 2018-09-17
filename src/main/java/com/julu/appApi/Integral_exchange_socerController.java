@@ -35,7 +35,7 @@ public class Integral_exchange_socerController {
     @PostMapping("/add_integral_good")
     @ApiOperation("新增兑换")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_integral_good(@RequestHeader String login_token, Integral_exchange_socer integral_exchange_socer){
         CodeMessage codeMessage=new CodeMessage();

@@ -1,6 +1,8 @@
 package com.julu.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
@@ -109,8 +111,15 @@ public class Content_reply extends Model<Content_reply> {
         this.reply_name = reply_name;
     }
 
-    public Date getAdd_time() {
-        return add_time;
+    public String getAdd_time() {
+        if(add_time!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+            String dateString = sdf.format(add_time);
+            return dateString;
+        }else{
+            return "";
+        }
+
     }
 
     public void setAdd_time(Date add_time) {

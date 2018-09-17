@@ -42,7 +42,7 @@ public class Content_imgtextController {
     @PostMapping("/get_content_imgtext_list")
     @ApiOperation("获取图文列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="所属分类id",name="type_id",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="显示封面缩略图 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String"),
@@ -112,7 +112,7 @@ public class Content_imgtextController {
     @PostMapping("/get_content_imgtext")
     @ApiOperation("根据id获取图文信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage<Content_imgtext> get_content_type(@RequestHeader String login_token,Integer id){
@@ -143,7 +143,7 @@ public class Content_imgtextController {
     @PostMapping("/add_dz_num")
     @ApiOperation("增加点赞")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer"),
     })
     public CodeMessage add_dz_num(@RequestHeader String login_token,Integer id){
@@ -178,7 +178,7 @@ public class Content_imgtextController {
     @PostMapping("/add_content_imgtext")
     @ApiOperation("新增图文信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_content_imgtext(@RequestHeader String login_token,Content_imgtext content_imgtext){
         CodeMessage codeMessage=new CodeMessage();
@@ -221,7 +221,7 @@ public class Content_imgtextController {
     @PostMapping("/update_content_imgtext")
     @ApiOperation("根据id修改图文信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage update_content_type(@RequestHeader String login_token, Content_imgtext content_imgtext){
         CodeMessage codeMessage=new CodeMessage();
@@ -254,7 +254,7 @@ public class Content_imgtextController {
     @PostMapping("/delete_content_imgtext")
     @ApiOperation("删除图文")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="图文id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage delete_content_imgtext(@RequestHeader String login_token,Integer id){

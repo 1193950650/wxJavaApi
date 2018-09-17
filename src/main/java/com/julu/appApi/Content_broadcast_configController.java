@@ -35,7 +35,7 @@ public class Content_broadcast_configController {
     @PostMapping("/get_content_broadcast_config")
     @ApiOperation("获取轮播配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage<Content_broadcast_config> get_content_broadcast_config(@RequestHeader String login_token){
         CodeMessage codeMessage=new CodeMessage();
@@ -64,7 +64,7 @@ public class Content_broadcast_configController {
     @PostMapping("/update_content_broadcast_config")
     @ApiOperation("修改轮播配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage update_content_broadcast_config(@RequestHeader String login_token, Content_broadcast_config content_broadcast_config){
         CodeMessage codeMessage=new CodeMessage();

@@ -35,7 +35,7 @@ public class Content_broadcastController {
     @PostMapping("/get_content_broadcast_list")
     @ApiOperation("获取轮播列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="显示 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%标题名称%",name="title_name",paramType="query",dataType="String")
     })
@@ -70,7 +70,7 @@ public class Content_broadcastController {
     @PostMapping("/get_content_broadcast")
     @ApiOperation("根据id获取轮播信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="轮播id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage<Content_broadcast> get_content_broadcast(@RequestHeader String login_token,Integer id){
@@ -100,7 +100,7 @@ public class Content_broadcastController {
     @PostMapping("/update_content_broadcast")
     @ApiOperation("根据id修改轮播信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage update_content_broadcast(@RequestHeader String login_token,Content_broadcast content_broadcast){
         CodeMessage codeMessage=new CodeMessage();
@@ -132,7 +132,7 @@ public class Content_broadcastController {
     @PostMapping("/delete_content_broadcast")
     @ApiOperation("删除轮播")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String"),
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="轮播id",name="id",paramType="query",dataType="Integer")
     })
     public CodeMessage delete_content_broadcast(@RequestHeader String login_token,Integer id){
@@ -165,7 +165,7 @@ public class Content_broadcastController {
     @PostMapping("/add_content_broadcast")
     @ApiOperation("新增轮播")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage add_content_broadcast(@RequestHeader String login_token, Content_broadcast content_broadcast){
         CodeMessage codeMessage=new CodeMessage();

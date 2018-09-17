@@ -36,7 +36,7 @@ public class Integral_configController {
     @PostMapping("/get_integral_config")
     @ApiOperation("获取积分商城配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage<Integral_config> get_integral_config(@RequestHeader String login_token){
         CodeMessage codeMessage=new CodeMessage();
@@ -65,7 +65,7 @@ public class Integral_configController {
     @PostMapping("/update_integral_config")
     @ApiOperation("修改积分商城配置")
     @ApiImplicitParams({
-            @ApiImplicitParam(value="login_token",name="login_token",paramType="harder",dataType="String")
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String")
     })
     public CodeMessage get_integral_config(@RequestHeader String login_token,Integral_config integral_config){
         CodeMessage codeMessage=new CodeMessage();

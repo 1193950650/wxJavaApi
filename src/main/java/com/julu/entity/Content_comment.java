@@ -1,11 +1,15 @@
 package com.julu.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+
+import com.julu.utils.Utils;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -15,7 +19,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author mhs
- * @since 2018-09-16
+ * @since 2018-09-17
  */
 @ApiModel("内容-评论")
 @TableName("wx_content_comment")
@@ -31,9 +35,9 @@ public class Content_comment extends Model<Content_comment> {
     @ApiModelProperty("图文内容id")
     private Integer imgtext_id;
     /**
-     * 用户id
+     * 用户唯一标识
      */
-    @ApiModelProperty("用户id")
+    @ApiModelProperty("用户唯一标识")
     private String open_id;
     /**
      * 显示 0不显示 1显示
@@ -55,6 +59,11 @@ public class Content_comment extends Model<Content_comment> {
      */
     @ApiModelProperty("评论时间")
     private Date add_time;
+    /**
+     * 评论内容
+     */
+    @ApiModelProperty("评论内容")
+    private String content;
 
 
     public Integer getId() {
@@ -105,12 +114,26 @@ public class Content_comment extends Model<Content_comment> {
         this.user_icon = user_icon;
     }
 
-    public Date getAdd_time() {
-        return add_time;
+    public String getAdd_time() {
+        if(add_time!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+            String dateString = sdf.format(add_time);
+            return dateString;
+        }else{
+            return "";
+        }
     }
 
     public void setAdd_time(Date add_time) {
         this.add_time = add_time;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
@@ -128,6 +151,7 @@ public class Content_comment extends Model<Content_comment> {
         ", user_name=" + user_name +
         ", user_icon=" + user_icon +
         ", add_time=" + add_time +
+        ", content=" + content +
         "}";
     }
 }
