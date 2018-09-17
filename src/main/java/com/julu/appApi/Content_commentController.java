@@ -70,8 +70,8 @@ public class Content_commentController {
         try {
             LinkedList<Content_commentDto> content_commentDtos=new LinkedList<>();
             List<Content_comment> list=content_commentService.selectList(ew);
-            EntityWrapper<Content_reply> ew1=new EntityWrapper<>();
             for (Content_comment content_comment: list){
+                EntityWrapper<Content_reply> ew1=new EntityWrapper<>();
                 Content_commentDto content_commentDto=new Content_commentDto();
                 ew1.eq("comment_id",content_comment.getId());
                 List<Content_reply> content_replies=content_replyService.selectList(ew1);
@@ -173,7 +173,8 @@ public class Content_commentController {
             Sys_user sys_user=redisService.getAppFuser(login_token);
             content_comment.setIs_show(1);
             content_comment.setOpen_id(sys_user.getOpen_id());
-            content_comment.setUser_icon(sys_user.getUser_name());
+            content_comment.setUser_icon(sys_user.getIcon());
+            content_comment.setUser_name(sys_user.getUser_name());
             content_comment.setAdd_time(new Date());
             if(content_commentService.insert(content_comment)){
                 codeMessage.setCode(200);
@@ -183,6 +184,7 @@ public class Content_commentController {
                 codeMessage.setMsg("新增评论失败");
             }
         }catch (Exception e){
+            System.out.println(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("新增评论失败");
         }
@@ -209,7 +211,8 @@ public class Content_commentController {
         try {
             Sys_user sys_user=redisService.getAppFuser(login_token);
             content_reply.setOpenid(sys_user.getOpen_id());
-            content_reply.setReply_name(sys_user.getUser_name());
+            content_reply.setUser_name(sys_user.getUser_name());
+            content_reply.setAdd_time(new Date());
             if(content_replyService.insert(content_reply)){
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增评论回复成功");

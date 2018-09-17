@@ -159,7 +159,6 @@ public class Content_imgtextController {
             return codeMessage;
         }
         try {
-
             Content_imgtext content_imgtext=content_imgtextService.selectById(id);
             content_imgtext.setDz_num(content_imgtext.getDz_num()+1);
             if(content_imgtextService.updateById(content_imgtext)){

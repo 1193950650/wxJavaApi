@@ -111,14 +111,8 @@ public class Content_reply extends Model<Content_reply> {
         this.reply_name = reply_name;
     }
 
-    public String getAdd_time() {
-        if(add_time!=null){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-            String dateString = sdf.format(add_time);
-            return dateString;
-        }else{
-            return "";
-        }
+    public Date getAdd_time() {
+        return add_time;
 
     }
 

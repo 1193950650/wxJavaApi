@@ -114,14 +114,8 @@ public class Content_comment extends Model<Content_comment> {
         this.user_icon = user_icon;
     }
 
-    public String getAdd_time() {
-        if(add_time!=null){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
-            String dateString = sdf.format(add_time);
-            return dateString;
-        }else{
-            return "";
-        }
+    public Date getAdd_time() {
+            return add_time;
     }
 
     public void setAdd_time(Date add_time) {
