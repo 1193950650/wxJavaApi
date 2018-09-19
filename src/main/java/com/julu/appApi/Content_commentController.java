@@ -7,9 +7,11 @@ import com.julu.dto.CodeMessage;
 import com.julu.dto.Content_commentDto;
 import com.julu.dto.PageDto;
 import com.julu.entity.Content_comment;
+import com.julu.entity.Content_imgtext;
 import com.julu.entity.Content_reply;
 import com.julu.entity.Sys_user;
 import com.julu.service.IContent_commentService;
+import com.julu.service.IContent_imgtextService;
 import com.julu.service.IContent_replyService;
 import com.julu.service.IRedisService;
 import io.swagger.annotations.Api;
@@ -44,6 +46,8 @@ public class Content_commentController {
     private IContent_commentService content_commentService;
     @Autowired
     private IRedisService redisService;
+    @Autowired
+    private IContent_imgtextService content_imgtextService;
     @Autowired
     private IContent_replyService content_replyService;
     @PostMapping("/get_content_comment_list")
@@ -177,6 +181,9 @@ public class Content_commentController {
             content_comment.setUser_name(sys_user.getUser_name());
             content_comment.setAdd_time(new Date());
             if(content_commentService.insert(content_comment)){
+                Content_imgtext imgtext=content_imgtextService.selectById(content_comment.getImgtext_id());
+                imgtext.setWrite_num(imgtext.getWrite_num()+1);
+                content_imgtextService.updateById(imgtext);
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增评论成功");
             }else{

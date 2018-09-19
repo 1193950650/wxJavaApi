@@ -77,8 +77,14 @@ public class Content_imgtextController {
             ew.like(true,"name",name);
         }
         if(modle!=null && !"".equals(modle)){
-            ew.eq("modle",modle);
+            if(modle==0){
+                ew.eq("modle",0);
+            }else{
+                ew.andNew().eq("modle",1).or().eq("modle",2);
+            }
+
         }
+
         if(order!=null && order>0){
             if(order==1){
                 ew.orderBy("add_time",false);
