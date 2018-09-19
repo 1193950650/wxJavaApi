@@ -14,7 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author mhs
- * @since 2018-09-19
+ * @since 2018-09-20
  */
 @ApiModel("图文点赞记录")
 @TableName("wx_content_imgtext_dzlog")
@@ -37,7 +37,7 @@ public class Content_imgtext_dzlog extends Model<Content_imgtext_dzlog> {
      * 用户标识
      */
     @ApiModelProperty("用户标识")
-    private Integer open_id;
+    private String open_id;
 
 
     public Integer getId() {
@@ -56,11 +56,11 @@ public class Content_imgtext_dzlog extends Model<Content_imgtext_dzlog> {
         this.imgtext_id = imgtext_id;
     }
 
-    public Integer getOpen_id() {
+    public String getOpen_id() {
         return open_id;
     }
 
-    public void setOpen_id(Integer open_id) {
+    public void setOpen_id(String open_id) {
         this.open_id = open_id;
     }
 
