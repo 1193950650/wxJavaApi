@@ -81,6 +81,7 @@ public class Content_typeController {
             codeMessage.setMsg("查询分类列表成功");
             codeMessage.setData(res_list);
         }catch (Exception e){
+            System.out.println(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("查询分类列表失败");
         }

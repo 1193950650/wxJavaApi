@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
 import com.julu.entity.Content_imgtext;
+import com.julu.entity.Content_imgtext_dzlog;
 import com.julu.entity.Content_type;
 import com.julu.entity.Sys_user;
 import com.julu.service.IContent_imgtextService;
+import com.julu.service.IContent_imgtext_dzlogService;
 import com.julu.service.IRedisService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -37,6 +39,8 @@ import java.util.Date;
 public class Content_imgtextController {
     @Autowired
     private IContent_imgtextService content_imgtextService;
+    @Autowired
+    private IContent_imgtext_dzlogService content_imgtext_dzlogService;
     @Autowired
     private IRedisService redisService;
     @PostMapping("/get_content_imgtext_list")
@@ -77,8 +81,14 @@ public class Content_imgtextController {
             ew.like(true,"name",name);
         }
         if(modle!=null && !"".equals(modle)){
-            ew.eq("modle",modle);
+            if(modle==0){
+                ew.eq("modle",0);
+            }else{
+                ew.andNew().eq("modle",1).or().eq("modle",2);
+            }
+
         }
+
         if(order!=null && order>0){
             if(order==1){
                 ew.orderBy("add_time",false);
@@ -159,15 +169,30 @@ public class Content_imgtextController {
             return codeMessage;
         }
         try {
-            Content_imgtext content_imgtext=content_imgtextService.selectById(id);
-            content_imgtext.setDz_num(content_imgtext.getDz_num()+1);
-            if(content_imgtextService.updateById(content_imgtext)){
-                codeMessage.setCode(200);
-                codeMessage.setMsg("点赞成功");
+            Sys_user sys_user=redisService.getAppFuser(login_token);
+            EntityWrapper<Content_imgtext_dzlog> ew=new EntityWrapper<>();
+            ew.eq("imgtext_id",id);
+            ew.eq("open_id",sys_user.getOpen_id());
+            Integer count=content_imgtext_dzlogService.selectList(ew).size();
+            if(count==0){
+                Content_imgtext content_imgtext=content_imgtextService.selectById(id);
+                content_imgtext.setDz_num(content_imgtext.getDz_num()+1);
+                if(content_imgtextService.updateById(content_imgtext)){
+                    Content_imgtext_dzlog content_imgtext_dzlog=new Content_imgtext_dzlog();
+                    content_imgtext_dzlog.setImgtext_id(content_imgtext.getId());
+                    content_imgtext_dzlog.setOpen_id(sys_user.getOpen_id());
+                    content_imgtext_dzlogService.insert(content_imgtext_dzlog);
+                    codeMessage.setCode(200);
+                    codeMessage.setMsg("点赞成功");
+                }else{
+                    codeMessage.setCode(500);
+                    codeMessage.setMsg("点赞失败");
+                }
             }else{
                 codeMessage.setCode(500);
-                codeMessage.setMsg("点赞失败");
+                codeMessage.setMsg("点赞失败,已经点赞");
             }
+
         }catch (Exception e){
             codeMessage.setCode(500);
             codeMessage.setMsg("点赞失败");

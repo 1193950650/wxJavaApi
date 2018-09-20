@@ -37,9 +37,10 @@ public class Content_broadcastController {
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="显示 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
-            @ApiImplicitParam(value="%标题名称%",name="title_name",paramType="query",dataType="String")
+            @ApiImplicitParam(value="%标题名称%",name="title_name",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="所属模块 0首页 1资讯",name="modle",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_broadcast>> get_content_broadcast_list(@RequestHeader String login_token,Integer is_show, String title_name){
+    public CodeMessage<PageDto<Content_broadcast>> get_content_broadcast_list(@RequestHeader String login_token,Integer is_show, String title_name,Integer modle){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -53,8 +54,13 @@ public class Content_broadcastController {
         }
         Page<Content_broadcast> page=new Page<>();
         EntityWrapper<Content_broadcast> ew=new EntityWrapper<>();
-        ew.eq("is_show",is_show);
-        ew.eq("title_name",title_name);
+        ew.eq("is_show",1);
+        if(title_name!=null && !"".equals(title_name)){
+            ew.like(true,"title_name",title_name);
+        }
+        if(modle!=null && !"".equals(modle)){
+            ew.eq("modle",modle);
+        }
         page.setSize(10);
         try {
             page=content_broadcastService.selectPage(page,ew);
