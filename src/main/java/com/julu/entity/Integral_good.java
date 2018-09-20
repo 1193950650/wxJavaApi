@@ -5,10 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -16,10 +15,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-08-29
+ * @since 2018-09-20
  */
-@TableName("wx_integral_good")
 @ApiModel("积分商品")
+@TableName("wx_integral_good")
 public class Integral_good extends Model<Integral_good> {
 
     private static final long serialVersionUID = 1L;

@@ -1,21 +1,16 @@
 package com.julu.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
-import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- *  积分码生成记录
+ * 积分码生成记录
  * </p>
  *
  * @author mhs
@@ -39,20 +34,20 @@ public class Integral_code extends Model<Integral_code> {
     @ApiModelProperty("积分兑换码")
     private String code;
     /**
-     * 商品id
+     * 积分
      */
-    @ApiModelProperty("商品id")
-    private Integer good_id;
+    @ApiModelProperty("积分")
+    private Integer integral_num;
     /**
      * 使用过 0未使用 1使用过
      */
     @ApiModelProperty("使用过 0未使用 1使用过")
     private Integer is_used;
     /**
-     * 失效时间
+     * 使用人
      */
-    @ApiModelProperty("失效时间")
-    private Date end_date;
+    @ApiModelProperty("使用人")
+    private String open_id;
 
 
     public Integer getId() {
@@ -71,12 +66,12 @@ public class Integral_code extends Model<Integral_code> {
         this.code = code;
     }
 
-    public Integer getGood_id() {
-        return good_id;
+    public Integer getIntegral_num() {
+        return integral_num;
     }
 
-    public void setGood_id(Integer good_id) {
-        this.good_id = good_id;
+    public void setIntegral_num(Integer integral_num) {
+        this.integral_num = integral_num;
     }
 
     public Integer getIs_used() {
@@ -87,12 +82,12 @@ public class Integral_code extends Model<Integral_code> {
         this.is_used = is_used;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public String getOpen_id() {
+        return open_id;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setOpen_id(String open_id) {
+        this.open_id = open_id;
     }
 
     @Override
@@ -103,11 +98,11 @@ public class Integral_code extends Model<Integral_code> {
     @Override
     public String toString() {
         return "Integral_code{" +
-                ", id=" + id +
-                ", code=" + code +
-                ", good_id=" + good_id +
-                ", is_used=" + is_used +
-                ", end_date=" + end_date +
-                "}";
+        ", id=" + id +
+        ", code=" + code +
+        ", integral_num=" + integral_num +
+        ", is_used=" + is_used +
+        ", open_id=" + open_id +
+        "}";
     }
 }

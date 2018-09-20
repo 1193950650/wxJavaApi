@@ -5,10 +5,9 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -16,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-08-31
+ * @since 2018-09-20
  */
 @ApiModel("积分消费记录")
 @TableName("wx_integral_consum")
@@ -27,7 +26,7 @@ public class Integral_consum extends Model<Integral_consum> {
     /**
      * 积分消费id
      */
-    @ApiModelProperty("兑换积分id")
+    @ApiModelProperty("积分消费id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
@@ -44,7 +43,7 @@ public class Integral_consum extends Model<Integral_consum> {
      * 用户id
      */
     @ApiModelProperty("用户id")
-    private Integer user_id;
+    private Integer open_id;
     /**
      * 消费时间
      */
@@ -76,14 +75,21 @@ public class Integral_consum extends Model<Integral_consum> {
         this.socer_num = socer_num;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getOpen_id() {
+        return open_id;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setOpen_id(Integer open_id) {
+        this.open_id = open_id;
     }
 
+    public Date getConsum_time() {
+        return consum_time;
+    }
+
+    public void setConsum_time(Date consum_time) {
+        this.consum_time = consum_time;
+    }
 
     @Override
     protected Serializable pkVal() {
@@ -96,16 +102,8 @@ public class Integral_consum extends Model<Integral_consum> {
         ", id=" + id +
         ", order_id=" + order_id +
         ", socer_num=" + socer_num +
-        ", user_id=" + user_id +
+        ", open_id=" + open_id +
         ", consum_time=" + consum_time +
         "}";
-    }
-
-    public Date getConsum_time() {
-        return consum_time;
-    }
-
-    public void setConsum_time(Date consum_time) {
-        this.consum_time = consum_time;
     }
 }

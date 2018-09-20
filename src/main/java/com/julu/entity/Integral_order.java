@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
@@ -13,8 +15,9 @@ import java.io.Serializable;
  * </p>
  *
  * @author mhs
- * @since 2018-08-31
+ * @since 2018-09-20
  */
+@ApiModel("积分商城订单")
 @TableName("wx_integral_order")
 public class Integral_order extends Model<Integral_order> {
 
@@ -25,22 +28,27 @@ public class Integral_order extends Model<Integral_order> {
     /**
      * 订单号
      */
+    @ApiModelProperty("订单号")
     private String order_num;
     /**
      * 购买用户id
      */
-    private Integer user_id;
+    @ApiModelProperty("购买用户id")
+    private Integer open_id;
     /**
      * 积分商品id
      */
+    @ApiModelProperty("积分商品id")
     private Integer good_id;
     /**
      * 订单时间
      */
+    @ApiModelProperty("订单时间")
     private Date order_time;
     /**
      * 订单状态 0待支付 1取消 2已支付
      */
+    @ApiModelProperty("订单状态 0待支付 1取消 2已支付")
     private Integer order_status;
 
 
@@ -60,12 +68,12 @@ public class Integral_order extends Model<Integral_order> {
         this.order_num = order_num;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getOpen_id() {
+        return open_id;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setOpen_id(Integer open_id) {
+        this.open_id = open_id;
     }
 
     public Integer getGood_id() {
@@ -102,7 +110,7 @@ public class Integral_order extends Model<Integral_order> {
         return "Integral_order{" +
         ", id=" + id +
         ", order_num=" + order_num +
-        ", user_id=" + user_id +
+        ", open_id=" + open_id +
         ", good_id=" + good_id +
         ", order_time=" + order_time +
         ", order_status=" + order_status +

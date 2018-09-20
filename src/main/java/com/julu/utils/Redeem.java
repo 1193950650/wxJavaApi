@@ -1,11 +1,12 @@
 package com.julu.utils;
 
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Redeem {
 
     static String stringtable = "abcdefghijkmnpqrstuvwxyz23456789";
-    final static String password = "mhs123%.*";
+    public static String password = "mhs123%.*";
 
     //从byte转为字符表索引所需要的位数
     final static int convertByteCount = 5;
@@ -14,8 +15,7 @@ public class Redeem {
     {
         ShowTime();
         System.out.println("=======================");
-        create((byte)1,100000,12,password);
-
+        create((byte)1,1,12,password);
         VerifyCode("aab6tpv294kb");
         VerifyCode("6d8eyvgzd3fb");
         VerifyCode("fiaybr924ckb");
@@ -28,7 +28,7 @@ public class Redeem {
      * 这里每一次生成兑换码的最大数量为int的最大值即2147483647
      * @return
      */
-    public static byte[] create(byte groupid,int codecount,int codelength,String password) {
+    public static LinkedList<String> create(byte groupid, int codecount, int codelength, String password) {
         //8位的数据总长度
         int fullcodelength = codelength * convertByteCount / 8;
         //随机码对时间和id同时做异或处理
@@ -39,6 +39,7 @@ public class Redeem {
         if(randcount <= 0 ) {
             return null;
         }
+        LinkedList<String> codes=new LinkedList<>();
         for(int i = 0 ; i < codecount ; i ++) {
             //这里使用i作为code的id
             //生成n位随机码
@@ -87,10 +88,11 @@ public class Redeem {
             for(int j = 0 ; j < bytes.length ; j ++) {
                 result.append(stringtable.charAt(bytes[j]));
             }
+            codes.add(result.toString());
             System.out.println("out string : " + result.toString());
         }
         ShowTime();
-        return null;
+        return codes;
     }
 
     /**
