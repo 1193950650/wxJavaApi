@@ -45,6 +45,11 @@ public class Integral_good extends Model<Integral_good> {
     @ApiModelProperty("销售价格")
     private Double sale_price;
     /**
+     * 商品兑换积分
+     */
+    @ApiModelProperty("商品兑换积分")
+    private Integer integral_num;
+    /**
      * 库存
      */
     @ApiModelProperty("库存")
@@ -126,6 +131,14 @@ public class Integral_good extends Model<Integral_good> {
 
     public void setSale_price(Double sale_price) {
         this.sale_price = sale_price;
+    }
+
+    public Integer getIntegral_num() {
+        return integral_num;
+    }
+
+    public void setIntegral_num(Integer integral_num) {
+        this.integral_num = integral_num;
     }
 
     public Integer getStock_num() {
@@ -220,6 +233,7 @@ public class Integral_good extends Model<Integral_good> {
         ", good_name=" + good_name +
         ", market_price=" + market_price +
         ", sale_price=" + sale_price +
+        ", integral_num=" + integral_num +
         ", stock_num=" + stock_num +
         ", exchange_num=" + exchange_num +
         ", sale_status=" + sale_status +

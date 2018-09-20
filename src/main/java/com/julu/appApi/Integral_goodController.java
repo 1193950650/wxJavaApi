@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
 import com.julu.entity.Integral_good;
+import com.julu.entity.Sys_user;
 import com.julu.service.IIntegral_goodService;
 import com.julu.service.IRedisService;
+import com.julu.service.ISys_userService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -34,6 +36,8 @@ public class Integral_goodController {
     private IIntegral_goodService integral_goodService;
     @Autowired
     private IRedisService redisService;
+    @Autowired
+    private ISys_userService sys_userService;
     @PostMapping("/get_integral_good_list")
     @ApiOperation("获取商品列表")
     @ApiImplicitParams({
@@ -226,5 +230,45 @@ public class Integral_goodController {
         }
         return codeMessage;
     }
+
+    @PostMapping("/buy_good")
+    @ApiOperation("购买商品")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="商品ID",name="good_id",paramType="query",dataType="Integer")
+    })
+    public CodeMessage buy_good(@RequestHeader String login_token,Integer good_id){
+        CodeMessage codeMessage=new CodeMessage();
+        if(login_token==null || "".equals(login_token)){
+            codeMessage.setCode(403);
+            codeMessage.setMsg("token丢失");
+            return codeMessage;
+        }
+        if(!redisService.isAppLogin(login_token,true)){
+            codeMessage.setCode(401);
+            codeMessage.setMsg("未登录");
+            return codeMessage;
+        }
+        Sys_user sys_user=redisService.getAppFuser(login_token);
+        Integral_good integral_good=integral_goodService.selectById(good_id);
+        if(integral_good.getIntegral_num()>sys_user.getSocer()){
+            codeMessage.setCode(500);
+            codeMessage.setMsg("积分不足");
+        }else if(integral_good.getStock_num()<1){
+            codeMessage.setCode(500);
+            codeMessage.setMsg("库存不足");
+        }
+        else{
+            sys_user.setSocer(sys_user.getSocer()-integral_good.getIntegral_num());
+            integral_good.setExchange_num(integral_good.getExchange_num()+1);
+            integral_good.setStock_num(integral_good.getIntegral_num()+1);
+            if(sys_userService.updateById(sys_user) &&integral_goodService.updateById(integral_good) ){
+                codeMessage.setCode(200);
+                codeMessage.setMsg("购买成功");
+            }
+        }
+        return codeMessage;
+    }
+
 }
 
