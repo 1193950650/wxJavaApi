@@ -154,7 +154,7 @@
 		<dependency>
 			<groupId>com.mhs.api</groupId>
 			<artifactId>swagger-test-ui</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.9</version>
 		</dependency>
 		<!--Project-->
 		<dependency>

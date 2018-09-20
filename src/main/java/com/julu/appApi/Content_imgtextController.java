@@ -7,7 +7,6 @@ import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
 import com.julu.entity.Content_imgtext;
 import com.julu.entity.Content_imgtext_dzlog;
-import com.julu.entity.Content_type;
 import com.julu.entity.Sys_user;
 import com.julu.service.IContent_imgtextService;
 import com.julu.service.IContent_imgtext_dzlogService;
