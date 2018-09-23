@@ -39,8 +39,11 @@ public class pubController {
      */
     @ApiOperation("上传文件服务")
     @PostMapping("/app/fileserver/upload")
+    @ApiImplicitParams({
+            @ApiImplicitParam(value="文件",name="file",paramType="file",dataType="MultipartFile")
+    })
     @ResponseBody
-    public CodeMessage<FileConfig> uploadFile(@ApiParam(type = "MultipartFile") MultipartFile file) {
+    public CodeMessage<FileConfig> uploadFile(MultipartFile file) {
         // System.out.println(request.getHeader("Content-Type"));
         //文件分片或断点续传需要Range头，表示字节流对应原始文件的位置
         CodeMessage codeMessage=new CodeMessage();
