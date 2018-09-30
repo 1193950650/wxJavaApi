@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  <META NAME="Generator" CONTENT="EditPlus">
+  <META NAME="Author" CONTENT="">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+ </HEAD>
+
+ <BODY>
+  <SCRIPT LANGUAGE="JavaScript">
+  sendPost();
+	function sendPost(){
+   // var url = "http://partner.bonree.com/V1.4/inface/showNetenvTask.action";
+    //var url = "http://127.0.0.1/BRNetMonitorV3/inface/showNetenvTask.action";
+   var url = "http://partner.bonree.com/V1.4/inface/taskListJson.action";
+  	var req = createHttp();
+		req.open("POST",url,false);
+		req.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+		//var params = 'username=idckylin&pwd=idckylin123&field=10000000000000';
+		var params = 'username=hostip&pwd=hostip&field=11100010000000';
+		req.send(params);
+		if(req.readyState==4){
+				if(req.status==200){
+					var result = req.responseText;
+					alert(result);
+				}
+			}
+		
+  	}
+		function createHttp(){
+	var req;
+	browser ='ie';
+	if(navigator.userAgent.indexOf("MSIE")>0)browser ='ie';
+    if(isFirefox=navigator.userAgent.indexOf("Firefox")>0)browser = 'foxfire';
+	if(window.ActiveXObject && !window.XMLHttpRequest){
+	  try{
+	    req=new ActiveXObject("Msxml2.XMLHTTP.6.0");
+	  }
+	  catch(e){
+	    try{
+	    req=new ActiveXObject("Msxml2.XMLHTTP.4.0");
+	    }
+	    catch(e1){
+	    try{
+	      req=new ActiveXObject("Msxml2.XMLHTTP.3.0");
+	    }
+	    catch(e2){
+	      try{
+	        req=new ActiveXObject("Microsoft.XMLHTTP");
+	      }
+	      catch(e3){
+	        alert("----");
+	  	req=null;
+	      }
+	    }
+	    }
+	  }
+	}else{
+	  req=new XMLHttpRequest();
+	}
+	return req;
+}
+  </SCRIPT>
+ </BODY>
+</HTML>
