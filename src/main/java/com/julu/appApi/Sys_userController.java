@@ -163,7 +163,7 @@ public class Sys_userController {
             List<Integral_config> integral_configs = integral_configService.selectList(config);
             if (integral_configs.size() > 0) {
                 Integral_config integral_config = integral_configs.get(0);
-                sys_user.setSocer(sys_user.getSocer()+integral_config.getLogin_get_num());
+                sys_user.setSocer(sys_user.getSocer()==null?0:sys_user.getSocer()+(integral_config.getLogin_get_num()==null?0:integral_config.getLogin_get_num()));
             }
             sys_userService.updateById(sys_user);
             codeMessage.setCode(200);

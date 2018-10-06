@@ -62,7 +62,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .description("接口文档分组：pc接口 微信小程序接口 公共接口")
                 .title("微信小程序api")
-                .termsOfServiceUrl("/doc.html（普通接口推荐） or /swagger-ui.html(文件上传接口推荐)")
+                .termsOfServiceUrl("/doc.html or /swagger-ui.html")
                 .contact(new Contact("mhs", "http://www.baidu.com", "471002385@qq.com"))
                 .version("1.0")
                 .build();
