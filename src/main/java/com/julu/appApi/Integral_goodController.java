@@ -42,9 +42,11 @@ public class Integral_goodController {
     @ApiOperation("获取商品列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="%商品名称%",name="good_name",paramType="query",dataType="String")
+            @ApiImplicitParam(value="%商品名称%",name="good_name",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer"),
+            @ApiImplicitParam(value="排序：0升序 1降序",name="sort",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Integral_good>> get_integral_good_list(@RequestHeader String login_token, String good_name){
+    public CodeMessage<PageDto<Integral_good>> get_integral_good_list(@RequestHeader String login_token, String good_name, Integer sort,Integer current){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -58,8 +60,22 @@ public class Integral_goodController {
         }
         Page<Integral_good> page=new Page<>();
         EntityWrapper<Integral_good> ew=new EntityWrapper<>();
-        ew.eq("good_name",good_name);
+        if(good_name!=null && !"".equals(good_name)){
+            ew.eq("good_name",good_name);
+        }
+        if(sort!=null && !"".equals(sort)){
+            if(sort==0){
+                ew.orderBy("sale_price",false);
+            }else{
+                ew.orderBy("sale_price",true);
+            }
+
+        }
+
         page.setSize(10);
+        if(current!=null && current>0){
+            page.setCurrent(current);
+        }
         try {
             page=integral_goodService.selectPage(page,ew);
             codeMessage.setCode(200);

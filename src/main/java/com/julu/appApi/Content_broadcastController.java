@@ -38,7 +38,7 @@ public class Content_broadcastController {
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
             @ApiImplicitParam(value="显示 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%标题名称%",name="title_name",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="所属模块 0首页 1资讯",name="modle",paramType="query",dataType="Integer")
+            @ApiImplicitParam(value="所属模块 0首页 1资讯 2积分",name="modle",paramType="query",dataType="Integer")
     })
     public CodeMessage<PageDto<Content_broadcast>> get_content_broadcast_list(@RequestHeader String login_token,Integer is_show, String title_name,Integer modle){
         CodeMessage codeMessage=new CodeMessage();

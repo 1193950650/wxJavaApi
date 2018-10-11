@@ -46,15 +46,16 @@ public class Content_imgtextController {
     @ApiOperation("获取图文列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="当前id",name="id",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="所属分类id",name="type_id",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="显示封面缩略图 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String"),
             @ApiImplicitParam(value="经度,维度",name="point",paramType="query",dataType="String"),
             @ApiImplicitParam(value="排序 1：最新 2：热门 3：距离",name="order",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer"),
-            @ApiImplicitParam(value="所属模块 0首页-状态 1资讯-图文 2资讯-视频",name="modle",paramType="query",dataType="Integer")
+            @ApiImplicitParam(value="所属模块 0首页-状态 1资讯-图文 2资讯-视频 3资讯-图文+视频",name="modle",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(@RequestHeader String login_token,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle){
+    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(@RequestHeader String login_token,Integer id,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -71,6 +72,9 @@ public class Content_imgtextController {
         if(type_id!=null && !"".equals(type_id)){
             ew.eq("type_id",type_id);
         }
+        if(id!=null && !"".equals(id)){
+            ew.ne("id",id);
+        }
         if(is_show!=null){
             ew.eq("is_show",is_show);
         }else{
@@ -82,8 +86,10 @@ public class Content_imgtextController {
         if(modle!=null && !"".equals(modle)){
             if(modle==0){
                 ew.eq("modle",0);
-            }else{
+            }else if(modle==3){
                 ew.andNew().eq("modle",1).or().eq("modle",2);
+            } else{
+                ew.eq("modle",modle);
             }
 
         }
