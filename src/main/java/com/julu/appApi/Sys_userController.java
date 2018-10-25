@@ -86,7 +86,7 @@ public class Sys_userController {
     }
 
     @PostMapping("/get_user_info")
-    @ApiOperation("获取用户微信信息")
+    @ApiOperation("获取用户信息")
     @ApiImplicitParams({@ApiImplicitParam(value = "login_token", name = "login_token", paramType = "query", dataType = "String")
     })
     public CodeMessage<Sys_user> get_user_info(HttpSession httpSession, @RequestHeader String login_token) {
