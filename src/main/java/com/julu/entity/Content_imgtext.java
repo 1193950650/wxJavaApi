@@ -44,11 +44,7 @@ public class Content_imgtext extends Model<Content_imgtext> {
      */
     @ApiModelProperty("所属分类id")
     private Integer type_id;
-    /**
-     * 封面样式0默认样式1大图样式2三图样式
-     */
-    @ApiModelProperty("封面样式0默认样式1大图样式2三图样式")
-    private Integer cover_style;
+
     /**
      * 封面缩略图
      */
@@ -166,14 +162,6 @@ public class Content_imgtext extends Model<Content_imgtext> {
 
     public void setType_id(Integer type_id) {
         this.type_id = type_id;
-    }
-
-    public Integer getCover_style() {
-        return cover_style;
-    }
-
-    public void setCover_style(Integer cover_style) {
-        this.cover_style = cover_style;
     }
 
     public String getCover_image() {
@@ -324,7 +312,6 @@ public class Content_imgtext extends Model<Content_imgtext> {
         ", name=" + name +
         ", author=" + author +
         ", type_id=" + type_id +
-        ", cover_style=" + cover_style +
         ", cover_image=" + cover_image +
         ", is_show=" + is_show +
         ", word_tags=" + word_tags +

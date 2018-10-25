@@ -1,7 +1,9 @@
 package com.julu.service;
 
+import com.julu.entity.Content_config;
 import com.julu.entity.Integral_config;
 import com.baomidou.mybatisplus.service.IService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IIntegral_configService extends IService<Integral_config> {
 
+     Content_config getContent_config();
 }

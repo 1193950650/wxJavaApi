@@ -5,11 +5,12 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
+import com.julu.entity.Content_config;
 import com.julu.entity.Integral_good;
+import com.julu.entity.Integral_order;
 import com.julu.entity.Sys_user;
-import com.julu.service.IIntegral_goodService;
-import com.julu.service.IRedisService;
-import com.julu.service.ISys_userService;
+import com.julu.service.*;
+import com.julu.utils.Redeem;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -35,7 +38,11 @@ public class Integral_goodController {
     @Autowired
     private IIntegral_goodService integral_goodService;
     @Autowired
+    private IIntegral_orderService integral_orderService;
+    @Autowired
     private IRedisService redisService;
+    @Autowired
+    private IContent_configService content_configService;
     @Autowired
     private ISys_userService sys_userService;
     @PostMapping("/get_integral_good_list")
@@ -112,6 +119,7 @@ public class Integral_goodController {
             codeMessage.setMsg("查询商品信息成功");
             codeMessage.setData(integral_good);
         }catch (Exception e){
+            System.out.println(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("查询商品信息失败");
         }
@@ -144,6 +152,7 @@ public class Integral_goodController {
                 codeMessage.setMsg("更新商品信息失败");
             }
         }catch (Exception e){
+            System.out.println(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("更新商品信息失败");
         }
@@ -248,12 +257,16 @@ public class Integral_goodController {
     }
 
     @PostMapping("/buy_good")
-    @ApiOperation("购买商品")
+    @ApiOperation("兑换商品")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
-            @ApiImplicitParam(value="商品ID",name="good_id",paramType="query",dataType="Integer")
+            @ApiImplicitParam(value="商品ID",name="good_id",paramType="query",dataType="Integer"),
+            @ApiImplicitParam(value="收获地址",name="address",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="邮编",name="code",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="收货人姓名",name="name",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="联系电话",name="phone",paramType="query",dataType="String")
     })
-    public CodeMessage buy_good(@RequestHeader String login_token,Integer good_id){
+    public CodeMessage buy_good(@RequestHeader String login_token,Integer good_id,String address,String code,String name,String phone){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -268,22 +281,46 @@ public class Integral_goodController {
         Sys_user sys_user=redisService.getAppFuser(login_token);
         Integral_good integral_good=integral_goodService.selectById(good_id);
         if(integral_good.getIntegral_num()>sys_user.getSocer()){
-            codeMessage.setCode(500);
+            codeMessage.setCode(3002);
             codeMessage.setMsg("积分不足");
+            return  codeMessage;
         }else if(integral_good.getStock_num()<1){
             codeMessage.setCode(500);
             codeMessage.setMsg("库存不足");
+            return codeMessage;
         }
         else{
             sys_user.setSocer(sys_user.getSocer()-integral_good.getIntegral_num());
             integral_good.setExchange_num(integral_good.getExchange_num()+1);
             integral_good.setStock_num(integral_good.getIntegral_num()+1);
-            if(sys_userService.updateById(sys_user) &&integral_goodService.updateById(integral_good) ){
+            //生成订单
+            Integral_order integral_order=new Integral_order();
+            integral_order.setGood_id(integral_good.getId());
+            integral_order.setGood_type(integral_good.getGood_type());
+            integral_order.setOrder_time(new Date());
+            integral_order.setGood_imgs(integral_good.getGood_imges());
+            integral_order.setGood_name(integral_good.getGood_name());
+            integral_order.setGood_price(integral_good.getSale_price());
+            integral_order.setCode(code);
+            integral_order.setName(name);
+            integral_order.setPhone(phone);
+            integral_order.setOpen_id(sys_user.getOpen_id());
+            integral_order.setOrder_num(Redeem.create((byte)1,1,12,Redeem.password).get(0));
+            integral_order.setOrder_status(2);
+            integral_order.setAddress(address);
+            if(sys_userService.updateById(sys_user) &&integral_goodService.updateById(integral_good) && integral_orderService.insert(integral_order)){
                 codeMessage.setCode(200);
-                codeMessage.setMsg("购买成功");
+                codeMessage.setMsg("兑换成功");
+                Content_config content_config=content_configService.selectById(1);
+                sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+                sys_userService.updateById(sys_user);
+                return  codeMessage;
+            }else{
+                codeMessage.setCode(500);
+                codeMessage.setMsg("兑换失败");
+                return codeMessage;
             }
         }
-        return codeMessage;
     }
 
 }

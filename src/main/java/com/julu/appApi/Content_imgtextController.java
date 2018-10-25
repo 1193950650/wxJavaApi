@@ -118,6 +118,7 @@ public class Content_imgtextController {
             codeMessage.setMsg("查询图文列表成功");
             codeMessage.setData(page);
         }catch (Exception e){
+            System.out.println(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("查询图文列表失败");
         }
