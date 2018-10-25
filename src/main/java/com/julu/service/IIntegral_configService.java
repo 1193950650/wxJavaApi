@@ -15,5 +15,4 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public interface IIntegral_configService extends IService<Integral_config> {
 
-     Content_config getContent_config();
 }
