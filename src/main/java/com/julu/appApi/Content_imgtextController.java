@@ -53,9 +53,10 @@ public class Content_imgtextController {
             @ApiImplicitParam(value="经度,维度",name="point",paramType="query",dataType="String"),
             @ApiImplicitParam(value="排序 1：最新 2：热门 3：距离",name="order",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer"),
+            @ApiImplicitParam(value="1表示查询自己的 其他表示所有",name="is_my",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="所属模块 0首页-状态 1资讯-图文 2资讯-视频 3资讯-图文+视频",name="modle",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(@RequestHeader String login_token,Integer id,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle){
+    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(@RequestHeader String login_token,Integer id,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle,Integer is_my){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -67,10 +68,14 @@ public class Content_imgtextController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
+        Sys_user sys_user=redisService.getAppFuser(login_token);
         Page<Content_imgtext> page=new Page<>();
         EntityWrapper<Content_imgtext> ew=new EntityWrapper<>();
         if(type_id!=null && !"".equals(type_id)){
             ew.eq("type_id",type_id);
+        }
+        if(is_my!=null && is_my==1){
+         ew.eq("open_id",sys_user.getOpen_id());
         }
         if(id!=null && !"".equals(id)){
             ew.ne("id",id);
