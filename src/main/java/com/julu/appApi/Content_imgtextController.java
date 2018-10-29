@@ -5,12 +5,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
-import com.julu.entity.Content_imgtext;
-import com.julu.entity.Content_imgtext_dzlog;
-import com.julu.entity.Sys_user;
-import com.julu.service.IContent_imgtextService;
-import com.julu.service.IContent_imgtext_dzlogService;
-import com.julu.service.IRedisService;
+import com.julu.entity.*;
+import com.julu.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -42,6 +38,12 @@ public class Content_imgtextController {
     private IContent_imgtext_dzlogService content_imgtext_dzlogService;
     @Autowired
     private IRedisService redisService;
+    @Autowired
+    private ISocer_logService socer_logService;
+    @Autowired
+    private IContent_configService content_configService;
+    @Autowired
+    private ISys_userService sys_userService;
     @PostMapping("/get_content_imgtext_list")
     @ApiOperation("获取图文列表")
     @ApiImplicitParams({
@@ -148,10 +150,20 @@ public class Content_imgtextController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
+        Sys_user sys_user=redisService.getAppFuser(login_token);
         try {
             Content_imgtext content_imgtext=content_imgtextService.selectById(id);
             content_imgtext.setSee_num(content_imgtext.getSee_num()+1);
             content_imgtextService.updateById(content_imgtext);
+            Content_config content_config=content_configService.selectById(1);
+            sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+            sys_userService.updateById(sys_user);
+            Socer_log socer_log=new Socer_log();
+            socer_log.setType(2);
+            socer_log.setDel_flag(0);
+            socer_log.setOpen_id(sys_user.getOpen_id());
+            socer_log.setSocer_num(-content_config.getBrowse_integral_num());
+            socer_logService.insert(socer_log);
             codeMessage.setCode(200);
             codeMessage.setMsg("查询图文信息成功");
             codeMessage.setData(content_imgtext);
@@ -240,6 +252,15 @@ public class Content_imgtextController {
             content_imgtext.setWrite_num(0);
             content_imgtext.setIs_show(1);
             if(content_imgtextService.insert(content_imgtext)){
+                Content_config content_config=content_configService.selectById(1);
+                sys_user.setSocer(sys_user.getSocer()+content_config.getArticles_integral_num());
+                sys_userService.updateById(sys_user);
+                Socer_log socer_log=new Socer_log();
+                socer_log.setType(2);
+                socer_log.setDel_flag(0);
+                socer_log.setOpen_id(sys_user.getOpen_id());
+                socer_log.setSocer_num(-content_config.getArticles_integral_num());
+                socer_logService.insert(socer_log);
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增图文分类信息成功");
             }else{

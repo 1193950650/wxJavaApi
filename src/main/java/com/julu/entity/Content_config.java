@@ -52,6 +52,21 @@ public class Content_config extends Model<Content_config> {
     @ApiModelProperty("评论文章增加积分")
     private Integer comment_integral_num;
     /**
+     * 发布文章赠送积分个数
+     */
+    @ApiModelProperty("发布文章赠送积分个数")
+    private Integer articles_integral_num;
+    /**
+     * 转发赠送积分个数
+     */
+    @ApiModelProperty("转发赠送积分个数")
+    private Integer forward_integral_num;
+    /**
+     * 积分兑换赠送积分个数
+     */
+    @ApiModelProperty("积分兑换赠送积分个数")
+    private Integer socer_exchange_num;
+    /**
      * 显示相关爱好物 0不显示 1显示
      */
     @ApiModelProperty("显示相关爱好物 0不显示 1显示")
@@ -130,5 +145,29 @@ public class Content_config extends Model<Content_config> {
         ", comment_integral_num=" + comment_integral_num +
         ", is_show_like=" + is_show_like +
         "}";
+    }
+
+    public Integer getArticles_integral_num() {
+        return articles_integral_num;
+    }
+
+    public void setArticles_integral_num(Integer articles_integral_num) {
+        this.articles_integral_num = articles_integral_num;
+    }
+
+    public Integer getForward_integral_num() {
+        return forward_integral_num;
+    }
+
+    public void setForward_integral_num(Integer forward_integral_num) {
+        this.forward_integral_num = forward_integral_num;
+    }
+
+    public Integer getSocer_exchange_num() {
+        return socer_exchange_num;
+    }
+
+    public void setSocer_exchange_num(Integer socer_exchange_num) {
+        this.socer_exchange_num = socer_exchange_num;
     }
 }

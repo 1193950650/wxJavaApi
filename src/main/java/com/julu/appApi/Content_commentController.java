@@ -40,7 +40,10 @@ public class Content_commentController {
     private IContent_commentService content_commentService;
     @Autowired
     private IRedisService redisService;
+    @Autowired
     private IContent_configService content_configService;
+    @Autowired
+    private ISocer_logService socer_logService;
     @Autowired
     private IContent_imgtextService content_imgtextService;
     @Autowired
@@ -191,6 +194,12 @@ public class Content_commentController {
                 Content_config content_config=content_configService.selectById(1);
                 sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
                 sys_userService.updateById(sys_user);
+                Socer_log socer_log=new Socer_log();
+                socer_log.setType(0);
+                socer_log.setDel_flag(0);
+                socer_log.setOpen_id(sys_user.getOpen_id());
+                socer_log.setSocer_num(-content_config.getBrowse_integral_num());
+                socer_logService.insert(socer_log);
             }else{
                 codeMessage.setCode(500);
                 codeMessage.setMsg("新增评论失败");

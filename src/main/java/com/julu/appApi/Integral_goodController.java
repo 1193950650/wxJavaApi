@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
-import com.julu.entity.Content_config;
-import com.julu.entity.Integral_good;
-import com.julu.entity.Integral_order;
-import com.julu.entity.Sys_user;
+import com.julu.entity.*;
 import com.julu.service.*;
 import com.julu.utils.Redeem;
 import io.swagger.annotations.Api;
@@ -41,6 +38,8 @@ public class Integral_goodController {
     private IIntegral_orderService integral_orderService;
     @Autowired
     private IRedisService redisService;
+    @Autowired
+    private ISocer_logService socer_logService;
     @Autowired
     private IContent_configService content_configService;
     @Autowired
@@ -300,7 +299,7 @@ public class Integral_goodController {
             integral_order.setOrder_time(new Date());
             integral_order.setGood_imgs(integral_good.getGood_imges());
             integral_order.setGood_name(integral_good.getGood_name());
-            integral_order.setGood_price(integral_good.getSale_price());
+            integral_order.setGood_socer_num(integral_good.getIntegral_num());
             integral_order.setCode(code);
             integral_order.setName(name);
             integral_order.setPhone(phone);
@@ -311,9 +310,14 @@ public class Integral_goodController {
             if(sys_userService.updateById(sys_user) &&integral_goodService.updateById(integral_good) && integral_orderService.insert(integral_order)){
                 codeMessage.setCode(200);
                 codeMessage.setMsg("兑换成功");
-                Content_config content_config=content_configService.selectById(1);
-                sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+                sys_user.setSocer(sys_user.getSocer()-integral_good.getIntegral_num());
                 sys_userService.updateById(sys_user);
+                Socer_log socer_log=new Socer_log();
+                socer_log.setType(5);
+                socer_log.setDel_flag(0);
+                socer_log.setOpen_id(sys_user.getOpen_id());
+                socer_log.setSocer_num(-integral_good.getIntegral_num());
+                socer_logService.insert(socer_log);
                 return  codeMessage;
             }else{
                 codeMessage.setCode(500);

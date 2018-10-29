@@ -54,6 +54,12 @@ public class Integral_order extends Model<Integral_order> {
     private String good_imgs;
 
     /**
+     * 积分商品-积分个数
+     */
+    @ApiModelProperty("积分商品-积分个数")
+    private Integer good_socer_num;
+
+    /**
      * 商品名称
      */
     @ApiModelProperty("商品名称")
@@ -227,5 +233,13 @@ public class Integral_order extends Model<Integral_order> {
 
     public void setGood_type(Integer good_type) {
         this.good_type = good_type;
+    }
+
+    public Integer getGood_socer_num() {
+        return good_socer_num;
+    }
+
+    public void setGood_socer_num(Integer good_socer_num) {
+        this.good_socer_num = good_socer_num;
     }
 }
