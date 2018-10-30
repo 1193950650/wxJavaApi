@@ -4,6 +4,7 @@ import com.julu.entity.Content_config;
 import com.julu.mapper.Content_configMapper;
 import com.julu.service.IContent_configService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**

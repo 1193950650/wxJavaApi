@@ -34,21 +34,73 @@ public class Integral_order extends Model<Integral_order> {
      * 购买用户id
      */
     @ApiModelProperty("购买用户id")
-    private Integer open_id;
+    private String open_id;
     /**
      * 积分商品id
      */
     @ApiModelProperty("积分商品id")
     private Integer good_id;
+
+    /**
+     * 商品类型 0积分 1钱
+     */
+    @ApiModelProperty("商品类型 0积分 1钱")
+    private Integer good_type;
+
+    /**
+     * 商品图片
+     */
+    @ApiModelProperty("商品图片")
+    private String good_imgs;
+
+    /**
+     * 积分商品-积分个数
+     */
+    @ApiModelProperty("积分商品-积分个数")
+    private Integer good_socer_num;
+
+    /**
+     * 商品名称
+     */
+    @ApiModelProperty("商品名称")
+    private String good_name;
+
+    /**
+     * 商品名称
+     */
+    @ApiModelProperty("商品价格")
+    private Double good_price;
+
     /**
      * 订单时间
      */
     @ApiModelProperty("订单时间")
     private Date order_time;
+
     /**
-     * 订单状态 0待支付 1取消 2已支付
+     * 收货地址
      */
-    @ApiModelProperty("订单状态 0待支付 1取消 2已支付")
+    @ApiModelProperty("收货地址")
+    private String address;
+    /**
+     * 邮编
+     */
+    @ApiModelProperty("邮编")
+    private String code;
+    /**
+     * 收货人姓名
+     */
+    @ApiModelProperty("收货人姓名")
+    private String name;
+    /**
+     * 联系电话
+     */
+    @ApiModelProperty("联系电话")
+    private String phone;
+    /**
+     * 订单状态 0待支付 1取消 2已支付 3待发货 4已发货 5已收货
+     */
+    @ApiModelProperty("订单状态 0待支付 1取消 2已支付 3待发货 4已发货 5已收货")
     private Integer order_status;
 
 
@@ -68,11 +120,11 @@ public class Integral_order extends Model<Integral_order> {
         this.order_num = order_num;
     }
 
-    public Integer getOpen_id() {
+    public String getOpen_id() {
         return open_id;
     }
 
-    public void setOpen_id(Integer open_id) {
+    public void setOpen_id(String open_id) {
         this.open_id = open_id;
     }
 
@@ -113,7 +165,81 @@ public class Integral_order extends Model<Integral_order> {
         ", open_id=" + open_id +
         ", good_id=" + good_id +
         ", order_time=" + order_time +
+        ", address=" + address +
         ", order_status=" + order_status +
         "}";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
+    public String getGood_imgs() {
+        return good_imgs;
+    }
+
+    public void setGood_imgs(String good_imgs) {
+        this.good_imgs = good_imgs;
+    }
+
+    public String getGood_name() {
+        return good_name;
+    }
+
+    public void setGood_name(String good_name) {
+        this.good_name = good_name;
+    }
+
+    public Double getGood_price() {
+        return good_price;
+    }
+
+    public void setGood_price(Double good_price) {
+        this.good_price = good_price;
+    }
+
+    public Integer getGood_type() {
+        return good_type;
+    }
+
+    public void setGood_type(Integer good_type) {
+        this.good_type = good_type;
+    }
+
+    public Integer getGood_socer_num() {
+        return good_socer_num;
+    }
+
+    public void setGood_socer_num(Integer good_socer_num) {
+        this.good_socer_num = good_socer_num;
     }
 }

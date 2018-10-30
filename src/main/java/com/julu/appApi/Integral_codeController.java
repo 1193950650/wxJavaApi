@@ -4,10 +4,9 @@ package com.julu.appApi;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.julu.dto.CodeMessage;
 import com.julu.entity.Integral_code;
+import com.julu.entity.Socer_log;
 import com.julu.entity.Sys_user;
-import com.julu.service.IIntegral_codeService;
-import com.julu.service.IRedisService;
-import com.julu.service.ISys_userService;
+import com.julu.service.*;
 import com.julu.utils.Redeem;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -41,6 +40,10 @@ public class Integral_codeController {
     private IIntegral_codeService integral_codeService;
     @Autowired
     private ISys_userService sys_userService;
+
+    @Autowired
+    private ISocer_logService socer_logService;
+    @Autowired
 
     @PostMapping("/get_codes")
     @ApiOperation("生成兑换码")
@@ -117,6 +120,12 @@ public class Integral_codeController {
                 if(integral_codeService.updateById(integral_code)){
                     sys_user.setSocer(sys_user.getSocer()+integral_code.getIntegral_num());
                     if(sys_userService.updateById(sys_user)){
+                        Socer_log socer_log=new Socer_log();
+                        socer_log.setType(3);
+                        socer_log.setDel_flag(0);
+                        socer_log.setOpen_id(sys_user.getOpen_id());
+                        socer_log.setSocer_num(integral_code.getIntegral_num());
+                        socer_logService.insert(socer_log);
                         codeMessage.setCode(200);
                         codeMessage.setMsg("兑换成功");
                     }else{

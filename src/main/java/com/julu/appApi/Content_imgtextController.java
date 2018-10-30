@@ -5,12 +5,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.PageDto;
-import com.julu.entity.Content_imgtext;
-import com.julu.entity.Content_imgtext_dzlog;
-import com.julu.entity.Sys_user;
-import com.julu.service.IContent_imgtextService;
-import com.julu.service.IContent_imgtext_dzlogService;
-import com.julu.service.IRedisService;
+import com.julu.entity.*;
+import com.julu.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -42,19 +38,27 @@ public class Content_imgtextController {
     private IContent_imgtext_dzlogService content_imgtext_dzlogService;
     @Autowired
     private IRedisService redisService;
+    @Autowired
+    private ISocer_logService socer_logService;
+    @Autowired
+    private IContent_configService content_configService;
+    @Autowired
+    private ISys_userService sys_userService;
     @PostMapping("/get_content_imgtext_list")
     @ApiOperation("获取图文列表")
     @ApiImplicitParams({
             @ApiImplicitParam(value="login_token",name="login_token",paramType="query",dataType="String"),
+            @ApiImplicitParam(value="当前id",name="id",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="所属分类id",name="type_id",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="显示封面缩略图 0不显示 1显示",name="is_show",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="%图文名称%",name="name",paramType="query",dataType="String"),
             @ApiImplicitParam(value="经度,维度",name="point",paramType="query",dataType="String"),
             @ApiImplicitParam(value="排序 1：最新 2：热门 3：距离",name="order",paramType="query",dataType="Integer"),
             @ApiImplicitParam(value="页码",name="current",paramType="query",dataType="Integer"),
-            @ApiImplicitParam(value="所属模块 0首页-状态 1资讯-图文 2资讯-视频",name="modle",paramType="query",dataType="Integer")
+            @ApiImplicitParam(value="1表示查询自己的 其他表示所有",name="is_my",paramType="query",dataType="Integer"),
+            @ApiImplicitParam(value="所属模块 0首页-状态 1资讯-图文 2资讯-视频 3资讯-图文+视频",name="modle",paramType="query",dataType="Integer")
     })
-    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(@RequestHeader String login_token,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle){
+    public CodeMessage<PageDto<Content_imgtext>> get_content_imgtext_list(@RequestHeader String login_token,Integer id,Integer type_id, Integer is_show,Integer order,String point,Integer current, String name,Integer modle,Integer is_my){
         CodeMessage codeMessage=new CodeMessage();
         if(login_token==null || "".equals(login_token)){
             codeMessage.setCode(403);
@@ -66,10 +70,17 @@ public class Content_imgtextController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
+        Sys_user sys_user=redisService.getAppFuser(login_token);
         Page<Content_imgtext> page=new Page<>();
         EntityWrapper<Content_imgtext> ew=new EntityWrapper<>();
         if(type_id!=null && !"".equals(type_id)){
             ew.eq("type_id",type_id);
+        }
+        if(is_my!=null && is_my==1){
+         ew.eq("open_id",sys_user.getOpen_id());
+        }
+        if(id!=null && !"".equals(id)){
+            ew.ne("id",id);
         }
         if(is_show!=null){
             ew.eq("is_show",is_show);
@@ -82,8 +93,10 @@ public class Content_imgtextController {
         if(modle!=null && !"".equals(modle)){
             if(modle==0){
                 ew.eq("modle",0);
-            }else{
+            }else if(modle==3){
                 ew.andNew().eq("modle",1).or().eq("modle",2);
+            } else{
+                ew.eq("modle",modle);
             }
 
         }
@@ -112,6 +125,7 @@ public class Content_imgtextController {
             codeMessage.setMsg("查询图文列表成功");
             codeMessage.setData(page);
         }catch (Exception e){
+            System.out.println(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("查询图文列表失败");
         }
@@ -136,10 +150,20 @@ public class Content_imgtextController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
+        Sys_user sys_user=redisService.getAppFuser(login_token);
         try {
             Content_imgtext content_imgtext=content_imgtextService.selectById(id);
             content_imgtext.setSee_num(content_imgtext.getSee_num()+1);
             content_imgtextService.updateById(content_imgtext);
+            Content_config content_config=content_configService.selectById(1);
+            sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+            sys_userService.updateById(sys_user);
+            Socer_log socer_log=new Socer_log();
+            socer_log.setType(2);
+            socer_log.setDel_flag(0);
+            socer_log.setOpen_id(sys_user.getOpen_id());
+            socer_log.setSocer_num(-content_config.getBrowse_integral_num());
+            socer_logService.insert(socer_log);
             codeMessage.setCode(200);
             codeMessage.setMsg("查询图文信息成功");
             codeMessage.setData(content_imgtext);
@@ -228,6 +252,15 @@ public class Content_imgtextController {
             content_imgtext.setWrite_num(0);
             content_imgtext.setIs_show(1);
             if(content_imgtextService.insert(content_imgtext)){
+                Content_config content_config=content_configService.selectById(1);
+                sys_user.setSocer(sys_user.getSocer()+content_config.getArticles_integral_num());
+                sys_userService.updateById(sys_user);
+                Socer_log socer_log=new Socer_log();
+                socer_log.setType(2);
+                socer_log.setDel_flag(0);
+                socer_log.setOpen_id(sys_user.getOpen_id());
+                socer_log.setSocer_num(-content_config.getArticles_integral_num());
+                socer_logService.insert(socer_log);
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增图文分类信息成功");
             }else{

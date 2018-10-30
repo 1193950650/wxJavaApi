@@ -1,5 +1,6 @@
 package com.julu.service.impl;
 
+import com.julu.entity.Content_config;
 import com.julu.entity.Integral_config;
 import com.julu.mapper.Integral_configMapper;
 import com.julu.service.IIntegral_configService;
@@ -16,5 +17,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class Integral_configServiceImpl extends ServiceImpl<Integral_configMapper, Integral_config> implements IIntegral_configService {
+
 
 }

@@ -79,6 +79,14 @@ public class Integral_good extends Model<Integral_good> {
      */
     @ApiModelProperty("商品图册，用逗号隔开")
     private String good_imges;
+
+    /**
+     * 商品类型 0积分 1钱
+     */
+    @ApiModelProperty("商品类型 0积分 1钱")
+    private Integer good_type;
+
+
     /**
      * 商品简介
      */
@@ -245,5 +253,13 @@ public class Integral_good extends Model<Integral_good> {
         ", good_notes=" + good_notes +
         ", good_sort=" + good_sort +
         "}";
+    }
+
+    public Integer getGood_type() {
+        return good_type;
+    }
+
+    public void setGood_type(Integer good_type) {
+        this.good_type = good_type;
     }
 }

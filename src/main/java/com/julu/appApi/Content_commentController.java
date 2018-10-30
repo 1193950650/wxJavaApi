@@ -6,14 +6,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.Content_commentDto;
 import com.julu.dto.PageDto;
-import com.julu.entity.Content_comment;
-import com.julu.entity.Content_imgtext;
-import com.julu.entity.Content_reply;
-import com.julu.entity.Sys_user;
-import com.julu.service.IContent_commentService;
-import com.julu.service.IContent_imgtextService;
-import com.julu.service.IContent_replyService;
-import com.julu.service.IRedisService;
+import com.julu.entity.*;
+import com.julu.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -47,9 +41,15 @@ public class Content_commentController {
     @Autowired
     private IRedisService redisService;
     @Autowired
+    private IContent_configService content_configService;
+    @Autowired
+    private ISocer_logService socer_logService;
+    @Autowired
     private IContent_imgtextService content_imgtextService;
     @Autowired
     private IContent_replyService content_replyService;
+    @Autowired
+    private ISys_userService sys_userService;
     @PostMapping("/get_content_comment_list")
     @ApiOperation("根据图文id获取评论列表")
     @ApiImplicitParams({
@@ -69,6 +69,7 @@ public class Content_commentController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
+        Sys_user sys_user=redisService.getAppFuser(login_token);
         EntityWrapper<Content_comment> ew=new EntityWrapper<>();
         ew.eq("imgtext_id",id);
         try {
@@ -86,6 +87,9 @@ public class Content_commentController {
             codeMessage.setCode(200);
             codeMessage.setMsg("查询评论列表成功");
             codeMessage.setData(content_commentDtos);
+            Content_config content_config=content_configService.selectById(1);
+            sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+            sys_userService.updateById(sys_user);
         }catch (Exception e){
             codeMessage.setCode(500);
             codeMessage.setMsg("查询评论列表失败");
@@ -173,6 +177,7 @@ public class Content_commentController {
             codeMessage.setMsg("未登录");
             return codeMessage;
         }
+
         try {
             Sys_user sys_user=redisService.getAppFuser(login_token);
             content_comment.setIs_show(1);
@@ -186,6 +191,15 @@ public class Content_commentController {
                 content_imgtextService.updateById(imgtext);
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增评论成功");
+                Content_config content_config=content_configService.selectById(1);
+                sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+                sys_userService.updateById(sys_user);
+                Socer_log socer_log=new Socer_log();
+                socer_log.setType(0);
+                socer_log.setDel_flag(0);
+                socer_log.setOpen_id(sys_user.getOpen_id());
+                socer_log.setSocer_num(-content_config.getBrowse_integral_num());
+                socer_logService.insert(socer_log);
             }else{
                 codeMessage.setCode(500);
                 codeMessage.setMsg("新增评论失败");
@@ -223,6 +237,9 @@ public class Content_commentController {
             if(content_replyService.insert(content_reply)){
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增评论回复成功");
+                Content_config content_config=content_configService.selectById(1);
+                sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+                sys_userService.updateById(sys_user);
             }else{
                 codeMessage.setCode(500);
                 codeMessage.setMsg("新增评论回复失败");
