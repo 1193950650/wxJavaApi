@@ -125,7 +125,17 @@ function TaskData() {
        success:function(data,textStatus){ 
       	if(data){
          	layer.msg('更新测试数据成功', {icon: 6,time :2000});
-     	}else{
+     	}el
+
+           function editphone(){
+               layer.open({
+                   id:1,
+                   type: 1,
+                   title:'修改手机号',
+                   skin:'layui-layer-rim',
+                   area:['450px', 'auto'],
+                   closeBtn : 1,
+                   content: '<form class="layui-form" action=se{
      		layer.msg('更新测试数据失败,请重试!', {icon: 5,time :2000});
      	} 
       }, 
@@ -136,17 +146,7 @@ function TaskData() {
       	  hideDiv();
         } 
      });
-}
-
-function editphone(){
-	layer.open({
-		id:1,
-	        type: 1,
-	        title:'修改手机号',
-	        skin:'layui-layer-rim',
-	        area:['450px', 'auto'],
-	        closeBtn : 1,
-	        content: '<form class="layui-form" action="">'
+}"">'
 	            +'<div class="layui-form-item">'
 	            +'<label class="layui-form-label">新手机号</label>'
 	            +'<div class="layui-input-block">'
@@ -397,48 +397,6 @@ function SetRemainTime() {
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6b4;</i>
-                    <cite>监测机管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-						<a _href="/monitoring/web/findPcTestMac0">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>监测机列表-待配置</cite>
-                        </a>
-                    </li>
-                    <li>
-						<a _href="/monitoring/web/findPcTestMac1">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>监测机列表-准备中</cite>
-                        </a>
-                    </li>
-                    <li>
-						<a _href="/monitoring/web/findPcTestMac2">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>监测机列表-已启用</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6b4;</i>
-                    <cite>SLA模板管理</cite>
-                    <i class="iconfont nav_right">&#xe697;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/sla/web/slatemplate">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>SLA模板</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </div>
 </div>
@@ -462,7 +420,7 @@ function SetRemainTime() {
 <!-- 中部结束 -->
 <!-- 底部开始 -->
 <div class="footer">
-    <div class="copyright">Copyright ©2017 微链云 All Rights Reserved</div>
+    <div class="copyright">Copyright ©2018 同城 All Rights Reserved</div>
 </div>
 <!-- 底部结束 -->
 </body>

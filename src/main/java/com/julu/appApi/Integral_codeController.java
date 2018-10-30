@@ -43,7 +43,6 @@ public class Integral_codeController {
 
     @Autowired
     private ISocer_logService socer_logService;
-    @Autowired
 
     @PostMapping("/get_codes")
     @ApiOperation("生成兑换码")
