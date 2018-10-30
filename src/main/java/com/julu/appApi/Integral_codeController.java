@@ -52,7 +52,8 @@ public class Integral_codeController {
             @ApiImplicitParam(value = "生成个数", name = "num", paramType = "query", dataType = "Integer"),
             @ApiImplicitParam(value = "积分", name = "integral_num", paramType = "query", dataType = "Integer")
     })
-    public CodeMessage<List<Integral_code>> get_codes(@RequestHeader String login_token, Integer num, Integer integral_num) {
+    public CodeMessage<List<Integral_code>> get_codes() {
+        String login_token=null;Integer num=null; Integer integral_num=null;
         CodeMessage codeMessage = new CodeMessage();
         if (login_token == null || "".equals(login_token)) {
             codeMessage.setCode(403);
@@ -95,7 +96,7 @@ public class Integral_codeController {
             @ApiImplicitParam(value = "login_token", name = "login_token", paramType = "query", dataType = "String"),
             @ApiImplicitParam(value = "兑换码", name = "code", paramType = "query", dataType = "String")
     })
-    public CodeMessage<List<Integral_code>> use_code(@RequestHeader String login_token, String code) {
+    public CodeMessage<List<Integral_code>> use_code( String login_token, String code) {
         CodeMessage codeMessage = new CodeMessage();
         if (login_token == null || "".equals(login_token)) {
             codeMessage.setCode(403);
