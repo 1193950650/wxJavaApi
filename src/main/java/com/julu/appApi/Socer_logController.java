@@ -33,7 +33,7 @@ import java.util.List;
  */
 @Api(tags = "积分纪录")
 @RestController
-@RequestMapping("/socer_log")
+@RequestMapping("/app/socer_log")
 public class Socer_logController {
    @Autowired
    private ISocer_logService Socer_logServiceImpl;
