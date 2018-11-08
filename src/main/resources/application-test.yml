@@ -4,6 +4,10 @@ server:
   session-timeout: 60
   tomcat:
       uri-encoding: UTF-8
+  ssl:
+    key-store: classpath:www.huizejituan.net.jks
+    key-store-password: 6mr68k0x49g3
+    keyStoreType: jks
 spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource

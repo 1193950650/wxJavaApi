@@ -63,7 +63,7 @@ public class Socer_logController {
       if(type!=null && !"".equals(type)){
          ew.like(true,"type",type);
       }
-      ew.eq("is_show",1);
+      ew.eq("del_flag",0);
       page.setSize(10);
       if(current!=null && current>0){
          page.setCurrent(current);

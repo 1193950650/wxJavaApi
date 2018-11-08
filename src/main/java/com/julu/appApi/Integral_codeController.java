@@ -44,26 +44,15 @@ public class Integral_codeController {
     @Autowired
     private ISocer_logService socer_logService;
 
-    @PostMapping("/get_codes")
+    @PostMapping("/get_code")
     @ApiOperation("生成兑换码")
     @ApiImplicitParams({
-            @ApiImplicitParam(value = "login_token", name = "login_token", paramType = "query", dataType = "String"),
             @ApiImplicitParam(value = "生成个数", name = "num", paramType = "query", dataType = "Integer"),
             @ApiImplicitParam(value = "积分", name = "integral_num", paramType = "query", dataType = "Integer")
     })
-    public CodeMessage<List<Integral_code>> get_codes() {
-        String login_token=null;Integer num=null; Integer integral_num=null;
+    public CodeMessage<List<Integral_code>> get_code(Integer num,Integer integral_num) {
         CodeMessage codeMessage = new CodeMessage();
-        if (login_token == null || "".equals(login_token)) {
-            codeMessage.setCode(403);
-            codeMessage.setMsg("token丢失");
-            return codeMessage;
-        }
-        if (!redisService.isAppLogin(login_token, true)) {
-            codeMessage.setCode(401);
-            codeMessage.setMsg("未登录");
-            return codeMessage;
-        }
+
         List<Integral_code> integral_codes=new LinkedList<>();
         LinkedList<String> codes = Redeem.create((byte) 1, num, 12, Redeem.password);
         for (String code : codes) {
@@ -95,7 +84,7 @@ public class Integral_codeController {
             @ApiImplicitParam(value = "login_token", name = "login_token", paramType = "query", dataType = "String"),
             @ApiImplicitParam(value = "兑换码", name = "code", paramType = "query", dataType = "String")
     })
-    public CodeMessage<List<Integral_code>> use_code( String login_token, String code) {
+    public CodeMessage<List<Integral_code>> use_code( @RequestHeader  String login_token, String code) {
         CodeMessage codeMessage = new CodeMessage();
         if (login_token == null || "".equals(login_token)) {
             codeMessage.setCode(403);
