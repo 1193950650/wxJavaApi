@@ -268,6 +268,7 @@ public class Content_imgtextController {
                 codeMessage.setMsg("新增图文分类信息失败");
             }
         }catch (Exception e){
+            System.out.println(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("新增图文信息失败");
         }
