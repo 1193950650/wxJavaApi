@@ -153,21 +153,23 @@ public class Content_imgtextController {
         Sys_user sys_user=redisService.getAppFuser(login_token);
         try {
             Content_imgtext content_imgtext=content_imgtextService.selectById(id);
-            content_imgtext.setSee_num(content_imgtext.getSee_num()+1);
+            content_imgtext.setSee_num(content_imgtext.getSee_num()==null?1:(content_imgtext.getSee_num()+1));
             content_imgtextService.updateById(content_imgtext);
             Content_config content_config=content_configService.selectById(1);
             sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
             sys_userService.updateById(sys_user);
             Socer_log socer_log=new Socer_log();
-            socer_log.setType(2);
+            socer_log.setType(1);
             socer_log.setDel_flag(0);
             socer_log.setOpen_id(sys_user.getOpen_id());
-            socer_log.setSocer_num(-content_config.getBrowse_integral_num());
+            socer_log.setCreate_date(new Date());
+            socer_log.setSocer_num(content_config.getBrowse_integral_num());
             socer_logService.insert(socer_log);
             codeMessage.setCode(200);
             codeMessage.setMsg("查询图文信息成功");
             codeMessage.setData(content_imgtext);
         }catch (Exception e){
+            System.out.print(e);
             codeMessage.setCode(500);
             codeMessage.setMsg("查询图文信息失败");
         }
@@ -259,6 +261,7 @@ public class Content_imgtextController {
                 socer_log.setType(2);
                 socer_log.setDel_flag(0);
                 socer_log.setOpen_id(sys_user.getOpen_id());
+                socer_log.setCreate_date(new Date());
                 socer_log.setSocer_num(content_config.getArticles_integral_num());
                 socer_logService.insert(socer_log);
                 codeMessage.setCode(200);

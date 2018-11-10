@@ -65,6 +65,9 @@ public class Integral_order extends Model<Integral_order> {
     @ApiModelProperty("商品名称")
     private String good_name;
 
+    @ApiModelProperty("删除 0否 1是")
+    private Integer del_flag;
+
     /**
      * 商品名称
      */
@@ -241,5 +244,13 @@ public class Integral_order extends Model<Integral_order> {
 
     public void setGood_socer_num(Integer good_socer_num) {
         this.good_socer_num = good_socer_num;
+    }
+
+    public Integer getDel_flag() {
+        return del_flag;
+    }
+
+    public void setDel_flag(Integer del_flag) {
+        this.del_flag = del_flag;
     }
 }

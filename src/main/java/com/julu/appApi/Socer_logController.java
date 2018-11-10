@@ -8,6 +8,7 @@ import com.julu.dto.PageDto;
 import com.julu.entity.Content_type;
 import com.julu.entity.Integral_good;
 import com.julu.entity.Socer_log;
+import com.julu.entity.Sys_user;
 import com.julu.service.IRedisService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -59,18 +60,22 @@ public class Socer_logController {
          return codeMessage;
       }
       Page<Socer_log> page=new Page<>();
+      Sys_user sys_user=redisService.getAppFuser(login_token);
+
       EntityWrapper<Socer_log> ew=new EntityWrapper<>();
       if(type!=null && !"".equals(type)){
          ew.like(true,"type",type);
       }
+      ew.eq("open_id",sys_user.getOpen_id());
       ew.eq("del_flag",0);
-      page.setSize(10);
+      ew.orderBy(true,"create_date");
+      page.setSize(20);
       if(current!=null && current>0){
          page.setCurrent(current);
       }
       try {
          page=Socer_logServiceImpl.selectPage(page,ew);
-
+         page.setTotal(sys_user.getSocer());
          codeMessage.setCode(200);
          codeMessage.setMsg("查询积分纪录成功");
          codeMessage.setData(page);

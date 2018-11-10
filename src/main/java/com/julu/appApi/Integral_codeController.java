@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -112,6 +113,7 @@ public class Integral_codeController {
                         Socer_log socer_log=new Socer_log();
                         socer_log.setType(3);
                         socer_log.setDel_flag(0);
+                        socer_log.setCreate_date(new Date());
                         socer_log.setOpen_id(sys_user.getOpen_id());
                         socer_log.setSocer_num(integral_code.getIntegral_num());
                         socer_logService.insert(socer_log);

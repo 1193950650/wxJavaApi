@@ -303,6 +303,7 @@ public class Integral_goodController {
             integral_order.setCode(code);
             integral_order.setName(name);
             integral_order.setPhone(phone);
+            integral_order.setDel_flag(0);
             integral_order.setOpen_id(sys_user.getOpen_id());
             integral_order.setOrder_num(Redeem.create((byte)1,1,12,Redeem.password).get(0));
             integral_order.setOrder_status(2);
@@ -314,6 +315,7 @@ public class Integral_goodController {
                 sys_userService.updateById(sys_user);
                 Socer_log socer_log=new Socer_log();
                 socer_log.setType(5);
+                socer_log.setCreate_date(new Date());
                 socer_log.setDel_flag(0);
                 socer_log.setOpen_id(sys_user.getOpen_id());
                 socer_log.setSocer_num(-integral_good.getIntegral_num());

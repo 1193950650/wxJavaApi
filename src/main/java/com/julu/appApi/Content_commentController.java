@@ -187,19 +187,19 @@ public class Content_commentController {
             content_comment.setAdd_time(new Date());
             if(content_commentService.insert(content_comment)){
                 Content_imgtext imgtext=content_imgtextService.selectById(content_comment.getImgtext_id());
-                imgtext.setWrite_num(imgtext.getWrite_num()+1);
+                imgtext.setWrite_num(imgtext.getWrite_num()==null?(0+1):(imgtext.getWrite_num()+1));
                 content_imgtextService.updateById(imgtext);
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增评论成功");
                 Content_config content_config=content_configService.selectById(1);
-                sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
+                sys_user.setSocer(sys_user.getSocer()+content_config.getComment_integral_num());
                 sys_userService.updateById(sys_user);
                 Socer_log socer_log=new Socer_log();
                 socer_log.setType(0);
                 socer_log.setDel_flag(0);
                 socer_log.setCreate_date(new Date());
                 socer_log.setOpen_id(sys_user.getOpen_id());
-                socer_log.setSocer_num(-content_config.getBrowse_integral_num());
+                socer_log.setSocer_num(content_config.getComment_integral_num());
                 socer_logService.insert(socer_log);
             }else{
                 codeMessage.setCode(500);

@@ -159,12 +159,6 @@ public class Sys_userController {
             sys_user = sys_userList.get(0);
             sys_user.setLogin_num(sys_user.getLogin_num() + 1);
             sys_user.setLast_login_time(new Date());
-            EntityWrapper<Integral_config> config = new EntityWrapper<>();
-            List<Integral_config> integral_configs = integral_configService.selectList(config);
-            if (integral_configs.size() > 0) {
-                Integral_config integral_config = integral_configs.get(0);
-                sys_user.setSocer(sys_user.getSocer()==null?0:sys_user.getSocer()+(integral_config.getLogin_get_num()==null?0:integral_config.getLogin_get_num()));
-            }
             sys_userService.updateById(sys_user);
             codeMessage.setCode(200);
             codeMessage.setMsg("用户登录成功");
