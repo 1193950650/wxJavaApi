@@ -56,7 +56,7 @@ public class pubController {
             FileCopyUtils.copy(bytes, fileToSave); // 保存文件
             // 数据表里要存储原始文件名、用户id、时间戳、服务器生成的文件名， 客户端文件起始位置start、客户端文件终止位置end、客户端文件大小total等
             FileConfig fileConfig=new FileConfig();
-            fileConfig.setUrl("https://www.huizejituan.net:9091/"+fileName);
+            fileConfig.setUrl("https://www.huizejituan.net:9091/app/fileserver/"+fileName);
             //resp.setStatus(0);
             //resp.setSize(fileToSave.length());
             //截掉配置的路径
