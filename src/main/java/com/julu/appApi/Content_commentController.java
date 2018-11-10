@@ -240,9 +240,6 @@ public class Content_commentController {
             if(content_replyService.insert(content_reply)){
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增评论回复成功");
-                Content_config content_config=content_configService.selectById(1);
-                sys_user.setSocer(sys_user.getSocer()+content_config.getBrowse_integral_num());
-                sys_userService.updateById(sys_user);
             }else{
                 codeMessage.setCode(500);
                 codeMessage.setMsg("新增评论回复失败");

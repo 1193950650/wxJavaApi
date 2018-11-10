@@ -129,12 +129,12 @@ public class Integral_codeController {
                 }
             }else{
                 codeMessage.setCode(500);
-                codeMessage.setMsg("兑换失败");
+                codeMessage.setMsg("不存在的兑换码");
             }
         }catch (Exception e){
             System.out.println(e);
             codeMessage.setCode(500);
-            codeMessage.setMsg("兑换失败");
+            codeMessage.setMsg("服务器异常");
         }
         return codeMessage;
     }

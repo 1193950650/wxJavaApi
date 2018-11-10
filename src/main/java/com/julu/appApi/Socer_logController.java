@@ -68,7 +68,7 @@ public class Socer_logController {
       }
       ew.eq("open_id",sys_user.getOpen_id());
       ew.eq("del_flag",0);
-      ew.orderBy(true,"create_date");
+      ew.orderBy(true,"create_date",false);
       page.setSize(20);
       if(current!=null && current>0){
          page.setCurrent(current);
