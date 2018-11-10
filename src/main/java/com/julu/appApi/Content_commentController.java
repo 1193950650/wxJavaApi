@@ -197,6 +197,7 @@ public class Content_commentController {
                 Socer_log socer_log=new Socer_log();
                 socer_log.setType(0);
                 socer_log.setDel_flag(0);
+                socer_log.setCreate_date(new Date());
                 socer_log.setOpen_id(sys_user.getOpen_id());
                 socer_log.setSocer_num(-content_config.getBrowse_integral_num());
                 socer_logService.insert(socer_log);
@@ -234,6 +235,8 @@ public class Content_commentController {
             content_reply.setOpenid(sys_user.getOpen_id());
             content_reply.setUser_name(sys_user.getUser_name());
             content_reply.setAdd_time(new Date());
+            content_reply.setDel_flag(0);
+            content_reply.setCreate_date(new Date());
             if(content_replyService.insert(content_reply)){
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增评论回复成功");

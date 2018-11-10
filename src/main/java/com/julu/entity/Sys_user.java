@@ -74,6 +74,8 @@ public class Sys_user extends Model<Sys_user> {
      */
     @ApiModelProperty("纬度")
     private Double lati;
+    @ApiModelProperty("删除 0否 1是")
+    private Integer del_flag;
 
 
     public Integer getId() {
@@ -175,5 +177,13 @@ public class Sys_user extends Model<Sys_user> {
         ", longi=" + longi +
         ", lati=" + lati +
         "}";
+    }
+
+    public Integer getDel_flag() {
+        return del_flag;
+    }
+
+    public void setDel_flag(Integer del_flag) {
+        this.del_flag = del_flag;
     }
 }

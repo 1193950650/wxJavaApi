@@ -61,8 +61,10 @@ public class Content_reply extends Model<Content_reply> {
      */
     @ApiModelProperty("回复时间")
     private Date add_time;
-
-
+    @ApiModelProperty("删除 0否 1是")
+    private Integer del_flag;
+    @ApiModelProperty("创建时间")
+    private Date create_date;
     public Integer getId() {
         return id;
     }
@@ -136,5 +138,21 @@ public class Content_reply extends Model<Content_reply> {
         ", reply_name=" + reply_name +
         ", add_time=" + add_time +
         "}";
+    }
+
+    public Integer getDel_flag() {
+        return del_flag;
+    }
+
+    public void setDel_flag(Integer del_flag) {
+        this.del_flag = del_flag;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
     }
 }

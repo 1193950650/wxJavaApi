@@ -259,7 +259,7 @@ public class Content_imgtextController {
                 socer_log.setType(2);
                 socer_log.setDel_flag(0);
                 socer_log.setOpen_id(sys_user.getOpen_id());
-                socer_log.setSocer_num(-content_config.getArticles_integral_num());
+                socer_log.setSocer_num(content_config.getArticles_integral_num());
                 socer_logService.insert(socer_log);
                 codeMessage.setCode(200);
                 codeMessage.setMsg("新增图文分类信息成功");
