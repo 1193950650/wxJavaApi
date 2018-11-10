@@ -48,7 +48,7 @@ public class pubController {
         //文件分片或断点续传需要Range头，表示字节流对应原始文件的位置
         CodeMessage codeMessage=new CodeMessage();
         String dir = getDir(fc.getUrl());
-        String fileName = getFileName(file.getOriginalFilename());
+        String fileName = "https://www.huizejituan.net:9091"+getFileName(file.getOriginalFilename());
         //FileObject resp = new FileObject();
         try {
             byte[] bytes = file.getBytes(); // 文件字节流
