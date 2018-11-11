@@ -1,7 +1,10 @@
 package com.julu.appApi;
 
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.github.binarywang.wxpay.service.WxPayService;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.LoginDto;
 import com.julu.entity.Integral_config;
@@ -43,6 +46,11 @@ public class Sys_userController {
     private IRedisService redisService;
     @Autowired
     private IIntegral_configService integral_configService;
+    @Autowired
+    private WxMaService wxService;
+
+    @Autowired
+    private WxPayService wxPayService;
 
     @PostMapping("/login")
     @ApiOperation("后台用户登录")
@@ -149,8 +157,22 @@ public class Sys_userController {
     @ApiImplicitParams({
             @ApiImplicitParam(value = "login_token", name = "login_token", paramType = "query", dataType = "String")
     })
-    public CodeMessage<LoginDto> add_user(HttpSession httpSession, Sys_user sys_user) {
+    public CodeMessage<LoginDto> add_user(HttpSession httpSession, Sys_user sys_user,String code) {
         CodeMessage<LoginDto> codeMessage = new CodeMessage();
+        String sessionKey = null;
+        String openId = null;
+        try {
+            WxMaJscode2SessionResult result = this.wxService.getUserService().getSessionInfo(code);
+            sessionKey = result.getSessionKey();
+            openId = result.getOpenid();
+            sys_user.setOpen_id(openId);
+        } catch (Exception e) {
+            System.out.print(e);
+             codeMessage.setCode(500);
+             codeMessage.setMsg("获取不到openid");
+             return codeMessage;
+        }
+
         EntityWrapper<Sys_user> ew = new EntityWrapper<>();
         ew.eq("open_id", sys_user.getOpen_id());
         List<Sys_user> sys_userList = sys_userService.selectList(ew);

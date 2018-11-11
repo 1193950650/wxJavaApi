@@ -130,7 +130,8 @@ public class Content_imgtext extends Model<Content_imgtext> {
      */
     @ApiModelProperty("所属模块 0首页-状态 1资讯-图文 2资讯-视频 ")
     private Integer modle;
-
+    @ApiModelProperty("删除 0否 1是")
+    private Integer del_flag;
 
     public Integer getId() {
         return id;
@@ -330,5 +331,13 @@ public class Content_imgtext extends Model<Content_imgtext> {
         ", phone=" + phone +
         ", modle=" + modle +
         "}";
+    }
+
+    public Integer getDel_flag() {
+        return del_flag;
+    }
+
+    public void setDel_flag(Integer del_flag) {
+        this.del_flag = del_flag;
     }
 }

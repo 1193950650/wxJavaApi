@@ -61,3 +61,6 @@ http:
   socketTimeout: 20000
 #提交请求前测试连接是否可用
   staleConnectionCheckEnabled: true
+mhs.wx:
+  appId: wx897cfbcf8cf9a598
+  appSecret: 2205314df7ab1e6f34e2aab320cada96
