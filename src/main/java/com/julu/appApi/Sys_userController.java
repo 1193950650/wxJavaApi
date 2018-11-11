@@ -7,11 +7,11 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.julu.dto.CodeMessage;
 import com.julu.dto.LoginDto;
+import com.julu.entity.Content_config;
 import com.julu.entity.Integral_config;
+import com.julu.entity.Socer_log;
 import com.julu.entity.Sys_user;
-import com.julu.service.IIntegral_configService;
-import com.julu.service.IRedisService;
-import com.julu.service.ISys_userService;
+import com.julu.service.*;
 import com.julu.utils.MD5;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,7 +45,9 @@ public class Sys_userController {
     @Autowired
     private IRedisService redisService;
     @Autowired
-    private IIntegral_configService integral_configService;
+    private ISocer_logService socer_logService;
+    @Autowired
+    private IContent_configService content_configService;
     @Autowired
     private WxMaService wxService;
 
@@ -189,13 +191,16 @@ public class Sys_userController {
                 sys_user.setLogin_num(1);
             sys_user.setLast_login_time(new Date());
             sys_user.setDel_flag(0);
-            EntityWrapper<Integral_config> config = new EntityWrapper<>();
-            List<Integral_config> integral_configs = integral_configService.selectList(config);
-            if (integral_configs.size() > 0) {
-                Integral_config integral_config = integral_configs.get(0);
-                sys_user.setSocer(sys_user.getSocer()==null?0:sys_user.getSocer()+(integral_config.getLogin_get_num()==null?0:integral_config.getLogin_get_num()));
-            }
+            Content_config content_config=content_configService.selectById(1);
+            sys_user.setSocer(content_config.getLogin_integral_num());
             sys_userService.insert(sys_user);
+            Socer_log socer_log=new Socer_log();
+            socer_log.setType(1);
+            socer_log.setDel_flag(0);
+            socer_log.setOpen_id(sys_user.getOpen_id());
+            socer_log.setCreate_date(new Date());
+            socer_log.setSocer_num(content_config.getBrowse_integral_num());
+            socer_logService.insert(socer_log);
             codeMessage.setCode(200);
             codeMessage.setMsg("注册并登录成功");
         }

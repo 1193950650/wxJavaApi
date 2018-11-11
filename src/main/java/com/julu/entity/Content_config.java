@@ -71,6 +71,8 @@ public class Content_config extends Model<Content_config> {
      */
     @ApiModelProperty("显示相关爱好物 0不显示 1显示")
     private Integer is_show_like;
+    @ApiModelProperty("登录注册送积分")
+    private Integer login_integral_num;
 
 
     public Integer getId() {
@@ -169,5 +171,14 @@ public class Content_config extends Model<Content_config> {
 
     public void setSocer_exchange_num(Integer socer_exchange_num) {
         this.socer_exchange_num = socer_exchange_num;
+    }
+
+
+    public Integer getLogin_integral_num() {
+        return login_integral_num;
+    }
+
+    public void setLogin_integral_num(Integer login_integral_num) {
+        this.login_integral_num = login_integral_num;
     }
 }
