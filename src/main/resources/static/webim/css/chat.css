@@ -1,0 +1,16 @@
+.chat{
+    position: absolute;
+    top:0;
+    right: 0;
+    width: 300px;
+    bottom:0;
+}
+.chat-msg-list{
+    width:100%;
+    max-height:calc( 100% - 200px)
+}
+.chat-input{
+    bottom:0;
+    width:100%;
+    height:200px;
+}
